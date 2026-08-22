@@ -1,6 +1,6 @@
 # Akros runtime evidence capture plan
 
-Research for the Wayfinder decision ticket **Capture Akros runtime evidence not present in the deployment snapshot**.
+Research for the Wayfinder decision ticket **Capture runtime facts needed for integration and migration**.
 
 All source paths are relative to the `wayrepo` root. Evidence is limited to the adjacent tree under `../context`, the existing [Akros production baseline](./akros-production-baseline.md), and a safe read-only check of Akros' public HTTP surface on 2026-08-22 at approximately 15:00 UTC. The Akros package is a production deployment snapshot captured approximately five days before this session and confirmed by the operator as live and in use. No authenticated production, database, observability, provider-console, analytics, or operator-session access was available for this research.
 
@@ -9,6 +9,8 @@ All source paths are relative to the `wayrepo` root. Evidence is limited to the 
 This plan supports **rebuilding Akros on the new architecture**. The current WRShop deployment snapshot is strong evidence for deployed product behavior, domain and connector seams, migration shape, operator acceptance, and URL/SEO continuity. Repairing, refactoring, securing, or reproducing the old PHP application and its infrastructure is outside this ticket.
 
 The capture must first discover each **External Business System** actually in use and its role; it must not assume a single ERP or that ABRA is active. ABRA is one evidenced connector family in the deployed package. The replacement should assign a **System of Record** per business fact or lifecycle transition and place replaceable **Connectors** around explicit contracts.
+
+This plan is a decision-driven capture menu, not a prerequisite for scaffolding, product cutline, domain boundaries, commerce-foundation direction, or the high-level roadmap. After those decisions sharpen the need, execute only the sections whose provider-specific facts materially affect a Connector contract, migration, reconciliation, coexistence, or cutover decision.
 
 The evidence tree distinguishes three evidence classes:
 
@@ -71,7 +73,7 @@ The capture should be executed by an authorized production operator or data owne
 
 ## Capture and output matrix
 
-Each section below is required. “Output” means a section or table inside the one controlled evidence bundle; it does not authorize the full underlying export.
+Each section below is an available capture module. Select only modules implicated by the resolved product cutline and domain boundaries. “Output” means a section or table inside the one controlled evidence bundle; it does not authorize the full underlying export.
 
 ### 1. Enabled domains, channels, and modules
 
@@ -181,9 +183,9 @@ Candidate interfaces include the deployed ABRA-shaped connectors, payment and ca
 
 ## Bundle-level acceptance criteria
 
-The ticket's evidence capture is complete only when:
+The ticket's selected evidence capture is complete only when:
 
-- [ ] Every requested area above has a provenance-complete output or an explicit `unavailable`, named owner, reason, and follow-up date.
+- [ ] Every selected, decision-relevant area has a provenance-complete output or an explicit `unavailable`, named owner, reason, and follow-up date; unselected areas are marked `not decision-relevant` rather than investigated speculatively.
 - [ ] Structural capability is never presented as live enablement; every live claim has a timestamped runtime source or operator confirmation.
 - [ ] Counts reconcile across important boundaries: enabled domains/channels, orders versus payment/shipping outcomes, Akros versus each External Business System's identifiers/statuses/invoices, and sitemap versus indexed/redirected URL classes. Differences are explained, not silently normalized.
 - [ ] Low counts are suppressed and the bundle contains no secrets, credentials, PII, PCI data, row-level hashes, raw payloads, raw logs, full dumps, private files, or mutation instructions.
