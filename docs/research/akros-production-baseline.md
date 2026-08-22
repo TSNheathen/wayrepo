@@ -2,13 +2,13 @@
 
 Research for the Wayfinder decision ticket **Reconstruct the Akros production product and operating baseline**.
 
-All source paths below are relative to the `wayrepo` root. They point into the adjacent evidence archive under `../context`. The archive contains production-derived code and data artifacts, but not the live database or a trustworthy runtime configuration export.
+All source paths below are relative to the `wayrepo` root. They point into the adjacent evidence tree under `../context`. The Akros package is a current production deployment snapshot, captured approximately five days before this Wayfinder session and confirmed by the operator as live and in use. It contains deployed code and production-derived data artifacts, but not the live database or a trustworthy runtime configuration export.
 
 ## Evidence grades
 
 | Grade | Meaning in this note |
 | --- | --- |
-| **Observed deployment fact** | Directly established by Akros entry points, host configuration, or an active Akros-specific extension seam. This still does not prove the archived version is exactly what production serves today. |
+| **Observed deployment fact** | Directly established by the current Akros production package's entry points, host configuration, or Akros-specific extension seams. This proves deployed code shape at capture time, not database-controlled enablement, traffic, schedules, or operator use. |
 | **Documented Akros intent** | Explicitly described by Akros' own implementation guide and backed by a corresponding project template or integration. Strong requirement evidence, but not direct observation of current traffic. |
 | **Supported / feature-gated** | Code or templates exist and are selected through settings, domain data, licenses, or runtime conditions. Presence does not prove Akros enabled or used the capability. |
 | **Historical / conflicting** | Older scripts, adapters, or migrations remain in the deployment archive alongside newer mechanisms. They are evidence of domain knowledge and migration risk, not automatically the current direction. |
@@ -20,9 +20,9 @@ Akros is a thin customer deployment over the old shared WRShop engine, not a sta
 
 The strongest product description is Akros' own `project/readme.html`. It documents a rich catalog, product detail, basket, and content-administration experience and names the corresponding CMS locations. The checked-in templates substantiate those flows. This is **documented Akros intent**, not proof that every setting remains enabled in production. Source: `../context/team-1633516729428-akros-124b361ce570/project/readme.html`.
 
-ABRA is a first-class business boundary. The newer `AbraApi` path imports catalog and customer data, exports customers and orders, imports order/status and invoice information, and obtains authorized invoice PDFs. However, legacy SOAP/FTP/XML scripts and an `AbraG3` generation coexist with `AbraApi`, so the authoritative current integration cannot be established from code presence alone. Sources: Akros `project/is/`, Akros `project/wrshop/Module/Is/AbraApi/Model/Import/ProductModel.php`, and shared-engine `wrshop/Module/Is/AbraApi/`.
+The deployed package contains a substantial ABRA-shaped business-system boundary. The newer `AbraApi` path imports catalog and customer data, exports customers and orders, imports order/status and invoice information, and obtains authorized invoice PDFs. However, legacy SOAP/FTP/XML scripts and an `AbraG3` generation coexist with `AbraApi`; deployed code presence alone does not establish that ABRA is the active operational system, which connector generation runs, or whether the system should be classified as ERP, accounting, inventory, or another role. Sources: Akros `project/is/`, Akros `project/wrshop/Module/Is/AbraApi/Model/Import/ProductModel.php`, and shared-engine `wrshop/Module/Is/AbraApi/`.
 
-The principal limitation is decisive: the archive has no Akros SQL/database snapshot. Domain settings, license flags, CMS content, active price lists, payment and shipping setup, account population, identifiers, and feature enablement live in data that is not present. The baseline can therefore say what the deployment is designed to do and what it depends on, but a live audit is required before declaring the exact replacement scope.
+The principal limitation is decisive: the production package has no Akros SQL/database snapshot. Domain settings, license flags, CMS content, active price lists, payment and shipping setup, account population, identifiers, feature enablement, connector schedules, and external-system activity live in state that is not present. The baseline can therefore say what was deployed, while a runtime-state capture is still required before declaring the exact replacement scope.
 
 ## Storefront baseline
 
@@ -55,7 +55,7 @@ Primary source: `../context/team-1633516729428-akros-124b361ce570/project/readme
 
 Primary sources: `../context/team-1633516729428-akros-124b361ce570/project/readme.html`, section “Detail produktu”; `project/templates/content/content.detail.tpl`; `project/templates/content/detail/block.tabs.tpl`; `project/templates/content/detail/block.products.group.tpl`; `project/templates/content/detail/block.configuration.tpl`; `project/templates/content/detail/form.configuration.set.tpl`; and `project/templates/components/block.prices.full.tpl`.
 
-**Observed Akros-specific integration fact:** `WrShop\Module\Is\AbraApi\Model\Import\ProductModel::beforeR()` encodes business semantics that a replacement must explicitly preserve, revise, or drop:
+**Observed Akros-specific deployed-connector fact:** `WrShop\Module\Is\AbraApi\Model\Import\ProductModel::beforeR()` encodes candidate business semantics that a replacement must explicitly verify, then preserve, revise, or drop if the connector is active:
 
 - ABRA product code length determines base product versus variant.
 - The first eight characters of a product code determine product grouping.
@@ -116,7 +116,7 @@ Primary sources: `project/templates/content/user/block.users.tpl`, `block.user_e
 
 **Historical / migration evidence:** `project/import2.php` maps ABRA price-list codes to local `customer.id_price_type`, including local price types 1, 6, and 15. `project/is/client/catalog.php` derives quantity breaks, and `project/is/client/cenik.php` imports assortment discounts keyed by company identifier. These establish real B2B pricing concepts but not necessarily the current algorithm.
 
-**Unknown / product decision:** whether the first new Akros must include both B2C and B2B storefronts at launch; exact account hierarchy and approval usage; price-list/discount precedence; store/group visibility; product limits; and which data ABRA versus the e-commerce back office owns.
+**Unknown / product decision:** whether the first new Akros must include both B2C and B2B storefronts at launch; exact account hierarchy and approval usage; price-list/discount precedence; store/group visibility; product limits; and which facts each discovered External Business System versus the e-commerce back office owns.
 
 ## Administration and operating model
 
@@ -186,7 +186,7 @@ The archive alone cannot establish which jobs were running, which adapter was au
 
 Primary sources: Akros `project/templates/content/basket/`, `project/templates/utilities/`, `project/templates/header.tpl`, `header.custom.tpl`, `footer.tpl`, `project/templates/components/`, and `project/config.php`.
 
-**Unknown:** actual active providers, feed endpoints, merchant accounts, measurement ids, consent configuration, current SEO index/redirect inventory, and whether the old Heureka API still receives traffic.
+**Unknown:** actual active external business systems and providers, feed endpoints, merchant accounts, measurement ids, consent configuration, current SEO index/redirect inventory, and whether the old Heureka API still receives traffic.
 
 ## Migration evidence and constraints
 
@@ -235,10 +235,10 @@ The following cannot be resolved from the archive and should be obtained through
 2. Enabled CMS modules, feature flags, license/version settings, and the actual account navigation for anonymous, retail, trade, subordinate, and administrator actors.
 3. Product, category, media, content, customer, order, invoice, claim, consent, basket, identifier, store, stock, and price-list volumes and freshness.
 4. Actual checkout rules and active shipping/payment providers, credentials, webhooks, callbacks, reconciliation, refunds, and failure handling.
-5. Actual ABRA adapter/job schedule per entity, active API generation, ownership of every synchronized field, latency, backlog, retry behavior, error rate, manual recovery, and reconciliation process.
+5. Which external business systems are actually in use; their product and operational role; the active connector/job per entity (including ABRA only if observed); ownership of every synchronized field; latency, backlog, retry behavior, error rate, manual recovery, and reconciliation process.
 6. Customer identity rules and the true number of duplicates, orphan mappings, malformed contacts, inactive accounts, subordinate relationships, and conflicting firm offices.
 7. Current order status mapping, cancellation/return/refund process, invoice and credit-note lifecycle, fulfillment ownership, shipment tracking, and claim workflow.
-8. CMS editor roles, operational handoffs, manual overrides, and which fields staff intentionally edit in the shop after ABRA import.
+8. CMS editor roles, operational handoffs, manual overrides, and which fields staff intentionally edit in the shop after a Connector import.
 9. Search index and SEO baseline: indexed URLs, redirects, canonical behavior, feeds, structured-data validity, analytics, conversion tracking, and organic landing pages.
 10. Infrastructure topology, databases, object/media storage, caches/search, email, cron/worker orchestration, monitoring, alerting, backups, restore drills, release pipeline, availability, performance, and security posture.
 
@@ -248,10 +248,10 @@ This research supports the following decision sequence:
 
 1. **Audit the live Akros feature and data baseline.** Resolve which documented/supported behaviors are actually used and establish volumes and operational dependencies.
 2. **Define “complete Akros.”** Decide whether launch includes B2C and B2B, and classify every legacy capability as preserve, improve, archive, or drop.
-3. **Set systems of record and domain boundaries.** Decide field and lifecycle ownership between ABRA, shared core/Ontos, e-commerce domains, Akros customization, and the administration/back office.
-4. **Choose the surviving ABRA contract.** Specify entity contracts, identity mapping, status semantics, idempotency, retries, reconciliation, backfill, observability, and retirement of older integration generations.
+3. **Set Systems of Record and domain boundaries.** Decide field and lifecycle ownership among each discovered External Business System, shared Core/Ontos, e-commerce domains, Akros customization, and the administration/back office.
+4. **Choose the surviving external-business-system contracts.** First identify the systems actually in use and their roles; then specify entity contracts, identity mapping, status semantics, idempotency, retries, reconciliation, backfill, observability, and retirement of obsolete connector generations. ABRA is one evidenced candidate, not an assumption.
 5. **Lock Akros-specific commerce rules.** Decide product grouping/variants, configurations/components, packaging/minimum quantities, price and discount precedence, store access, account hierarchy, approval, checkout and legal rules.
 6. **Choose migration and cutover strategy.** Define what moves, what remains read-only, URL/SEO continuity, coexistence and rollback, data cleansing, and acceptance evidence.
 7. **Define production acceptance.** Cover security and privacy, secret management, payment and email reliability, observability, backups, performance, accessibility, test seams, and operational ownership.
 
-Akros can force these decisions without requiring the whole future ERP to be designed. The useful shared seam is the business capability or record that both products genuinely need—customer/organization identity, catalog/item identity, pricing foundations, order/invoice references, administration primitives, or integration infrastructure—not wholesale reuse of the old CMS module inventory.
+Akros can force these decisions without requiring any future ERP or unrelated business application to be designed. The useful shared seam is a business capability or record justified by Akros and a second concrete use case—customer/organization identity, catalog/item identity, pricing foundations, order/invoice references, administration primitives, or Connector infrastructure—not wholesale reuse of the old CMS module inventory.
