@@ -9,8 +9,8 @@ This ledger preserves all four dispositions. `Later` is a deliberate pickup list
 - Production-complete means the replacement can safely take over every accepted Akros launch channel and required end-to-end business outcome; it does not mean WRShop feature parity.
 - Launch both the Czech B2C and B2B channels in Czech and CZK. Preserve another current market only if production evidence establishes material use; market expansion is later.
 - Preserve business outcomes and SEO continuity, with targeted improvement of risky or confusing journeys. A broad visual redesign and speculative platform breadth are later.
-- B2C supports anonymous browsing, guest checkout, and optional Customer Accounts.
-- B2B protects company-specific assortment, prices, availability, and ordering behind an approved Company User. The Company Account is the commercial customer; buyer, approver, and account-administrator authority is assigned per company.
+- B2C supports anonymous browsing, guest checkout, and optional authenticated access through a Retail Portal Principal.
+- B2B protects Counterparty-specific assortment, prices, availability, and ordering behind an approved Principal. The Counterparty is the commercial customer; buyer, approver, and access-administrator authority is assigned per Counterparty.
 - B2C and B2B share product identity and core content while allowing channel-specific visibility, merchandising, prices, quantity/package rules, availability, and purchasing rules.
 
 ## Classification rule
@@ -39,28 +39,28 @@ This ledger preserves all four dispositions. `Later` is a deliberate pickup list
 
 ### Buying journeys
 
-- B2C: discover, configure/select, cart, guest or account checkout, eligible shipping/payment, consent, and order confirmation.
+- B2C: discover, configure/select, cart, guest or authenticated checkout, eligible shipping/payment, consent, and order confirmation.
 - B2B: authenticate, see company terms, quick search or bulk entry, build a cart under quantity/package rules, add purchase-order/delivery instructions, submit directly or for approval, and receive confirmation.
 - Both journeys preserve selected configuration identity and create a durable order snapshot.
 - Printable offers and advanced purchasing controls only where confirmed as operationally required.
 
-### Accounts and aftercare
+### Identity and aftercare
 
-- Customer Account registration, sign-in, recovery, profile, invoice and delivery addresses, searchable order/invoice history, order and document detail, repeat ordering, claim submission/history, and consent history.
-- Company User invitation/access, Company Account permission management, and subordinate-basket review/approval where enabled.
+- Retail Portal Principal enrollment, sign-in, recovery, profile, invoice and delivery addresses, searchable order/invoice history, order and document detail, repeat ordering, claim submission/history, and consent history.
+- Principal access for a Counterparty, Counterparty permission management, and subordinate-basket review/approval where enabled.
 - Durable order status, shipment/tracking, invoice and credit documents, plus customer requests for lifecycle-permitted cancellation, correction, return, or refund. Operators perform irreversible financial or operational transitions.
 - Claims against an order line, including product/serial identity, explanation, attachments, guarded operator processing, communication, status, and history.
 - Repeat order creates a new cart from still-sellable items/configurations, reports changed or unavailable lines, and applies current commercial rules rather than recreating historical terms.
 
 ### Migration
 
-- Migrate active accounts, approved company relationships/permissions, required addresses/consents, open orders, unresolved payments/shipments, active approval baskets, open claims, and external mappings required to continue them.
-- Require password reset or secure account reactivation where legacy credentials cannot be migrated safely.
+- Migrate active Retail Customer identities and Principal bindings, approved Counterparty relationships/permissions, required addresses/consents, open orders, unresolved payments/shipments, active approval baskets, open claims, and external mappings required to continue them.
+- Require password reset or secure Principal reactivation where legacy credentials cannot be migrated safely.
 
 ### Administration and operations
 
 - Catalog and Content Operators manage locally owned categories, content, media, relations, merchandising, visibility, SEO metadata, navigation, and legal/service pages.
-- Customer and Company Operators approve B2B access, manage company relationships and purchasing controls, resolve access problems, and perform permitted customer-data corrections.
+- Customer and Counterparty Operators approve B2B access, manage Counterparty relationships and purchasing controls, resolve access problems, and perform permitted customer-data corrections.
 - Order and Aftercare Operators investigate orders, payments, shipments, and documents; perform permitted corrections/cancellations; process returns, refunds, and claims; and resend communications.
 - Commerce Operations Administrators manage channel rules, provider-neutral payment/shipping availability, operational configuration, feed and Connector health, reconciliation, and guarded retries.
 - Externally owned facts expose their source and freshness and cannot be silently overridden.
@@ -80,7 +80,7 @@ This ledger preserves all four dispositions. `Later` is a deliberate pickup list
 ### Production acceptance
 
 - Every Launch Capability has executable happy-path, business-rejection, external-failure, retry/recovery, permission, and audit scenarios that pass with representative synthetic data in a production-like environment.
-- Launch-blocking journeys are B2C guest/account purchase; B2B direct/approval purchase; complex configured/package-quantity purchase; payment success/failure/reconciliation/cancellation/refund; shipping/pickup/fulfillment/tracking/exception; exactly-once-in-business-terms order handoff; account recovery/order/invoice/repeat-order/claim aftercare; catalog/content publication and channel visibility; guarded operator correction/retry/audit; and historical archive access.
+- Launch-blocking journeys are B2C guest/authenticated purchase; B2B direct/approval purchase; complex configured/package-quantity purchase; payment success/failure/reconciliation/cancellation/refund; shipping/pickup/fulfillment/tracking/exception; exactly-once-in-business-terms order handoff; Principal access recovery/order/invoice/repeat-order/claim aftercare; catalog/content publication and channel visibility; guarded operator correction/retry/audit; and historical archive access.
 - Initial service targets are at least 99.9% monthly storefront/checkout availability excluding announced maintenance, zero lost or business-duplicated confirmed orders, a 15-minute recovery point objective, a two-hour recovery time objective, tested backup restoration and External Business System reconciliation, and capacity at twice evidenced peak traffic/order throughput. Stricter evidenced or contractual commitments supersede these floors.
 - Alerts cover checkout failures, stale commercial data, failed handoffs, payment/shipping failures, feed failures, and growing backlogs.
 - All launch customer and staff-critical journeys meet WCAG 2.2 AA; key public page types achieve good Core Web Vitals at the 75th percentile; mobile checkout and supported modern browsers are verified.
@@ -112,7 +112,7 @@ This ledger preserves all four dispositions. `Later` is a deliberate pickup list
 - Unconfirmed vouchers, gifts, bonus points, loyalty balances, elaborate discount thresholds, and personalized promotions.
 - Newsletter, editorial/news content, and marketing automation unless confirmed active.
 - Printable offers and advanced purchasing controls where not operationally required at launch.
-- Customer-account favorites, watchdogs, loyalty presentation, and other unconfirmed engagement features.
+- Authenticated retail favorites, watchdogs, loyalty presentation, and other unconfirmed engagement features.
 
 ## Archive/read-only
 

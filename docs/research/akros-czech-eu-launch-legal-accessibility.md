@@ -5,7 +5,7 @@ Research support for **[Define the production-complete Akros product cutline](ht
 ## Applicability boundary
 
 - Czech consumer-contract rules below apply when a natural person buys outside their trade or profession. They should govern the accepted B2C journey, not be copied blindly into company purchasing. B2B terms, remedies, authority, and invoicing need their own approved contract policy.
-- GDPR applies to personal data, including data about identifiable company users. Czech cookie rules apply to storing or reading information on a user's device. Czech electronic-marketing rules do not distinguish between natural- and legal-person recipients, according to the Czech data-protection authority ([GDPR, Articles 4–6](https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng); [ÚOOÚ marketing FAQ, question 25](https://uoou.gov.cz/cinnost/obchodni-sdeleni/casto-kladene-otazky-k-zakonu-c-4802004-sb)).
+- GDPR applies to personal data, including data about identifiable Principals acting for a Counterparty. Czech cookie rules apply to storing or reading information on a user's device. Czech electronic-marketing rules do not distinguish between natural- and legal-person recipients, according to the Czech data-protection authority ([GDPR, Articles 4–6](https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng); [ÚOOÚ marketing FAQ, question 25](https://uoou.gov.cz/cinnost/obchodni-sdeleni/casto-kladene-otazky-k-zakonu-c-4802004-sb)).
 - The Czech accessibility act covers specified services, including consumer e-commerce. It does not make every internal B2B/admin surface an EAA service, but shared surfaces used to conclude a consumer contract are within the launch applicability assessment ([Act 424/2023 Sb., § 2](https://e-sbirka.gov.cz/sb/2023/424); [Directive (EU) 2019/882, Articles 2–3](https://eur-lex.europa.eu/eli/dir/2019/882/oj/eng)).
 
 ## Consumer offer, price, and checkout
@@ -52,7 +52,7 @@ Electronic marketing normally requires prior, provable consent. The limited exis
 - The Data Protection Owner approves a processing inventory, legal bases, collection-time notices, processor/transfer register, data-subject request flow, retention/deletion matrix, breach ownership, and security evidence before launch.
 - Separate required checkout acknowledgements, contract acceptance, optional marketing consent, optional comparison/review programmes, and cookie purposes. Record the notice/consent version, timestamp, actor and later withdrawal; suppress marketing across all senders after opt-out.
 - Keep transactional messages purpose-limited: adding product or brand promotion can turn an order/service message into regulated commercial communication.
-- Test anonymous, guest, customer, Company User, and assisted-support paths for least data, access control, export/correction/deletion handling, log redaction, backup deletion policy, and absence of optional trackers before consent.
+- Test anonymous, guest Retail Customer, Retail Portal Principal, Counterparty Principal, and assisted-support paths for least data, access control, export/correction/deletion handling, log redaction, backup deletion policy, and absence of optional trackers before consent.
 
 ## Tax, invoices, and retention
 
@@ -64,7 +64,7 @@ VAT documents must remain authentic, content-integral, and readable and are gene
 
 - Finance defines which events create a purchase, VAT, corrective, invoice, or credit document; required fields; numbering; handoff/System of Record; electronic-delivery policy; and reconciliation.
 - Retention is record-class based, with legal hold, authorized read-only access, integrity/readability tests, export, expiry and evidenced deletion. A historical customer portal is an access view, not the tax/accounting archive itself.
-- Legal, Finance, Customer Care, and the Data Protection Owner jointly approve retention for orders, tax/accounting documents, complaints, consent proof, marketing suppression, audit/security logs, and backups. Statutory minima do not automatically authorize exposing all retained data in a live account.
+- Legal, Finance, Customer Care, and the Data Protection Owner jointly approve retention for orders, tax/accounting documents, complaints, consent proof, marketing suppression, audit/security logs, and backups. Statutory minima do not automatically authorize exposing all retained data in the customer portal.
 
 ## Digital accessibility (EAA and Czech implementation)
 

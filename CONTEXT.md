@@ -2,6 +2,8 @@
 
 This context defines the language used while planning Akros on a new architecture. The current deployment supplies evidence; it does not dictate the replacement's implementation or integration topology.
 
+This glossary extends the canonical OntOS vocabulary in `../context/ontos/CONTEXT.md`. OntOS terms such as Party, Counterparty, Principal, Legal Entity, and Evidence Artifact keep their OntOS meanings here; this file defines only Akros-specific refinements. If the two glossaries conflict, OntOS governs.
+
 ## Language
 
 **External Business System**:
@@ -48,28 +50,30 @@ Historical behavior or data retained read-only for customer service, audit, acco
 A capability deliberately absent from the replacement because it is unused, obsolete, unsafe, or generic legacy breadth with no accepted Akros value.
 
 **B2C Channel**:
-The Akros retail selling channel. Visitors may browse and complete a purchase without creating a Customer Account.
+The Akros retail selling channel. Visitors may browse and complete a purchase as a guest or as an authenticated Retail Portal Principal.
 
-**Customer Account**:
-An optional identity through which a retail customer retains addresses, commerce history, aftercare access, favorites, and notifications. It is not required for B2C checkout.
+**Retail Customer**:
+A Party buying or considering a purchase through the B2C Channel. A Retail Customer may purchase as a guest or use a Retail Portal Principal for durable portal access.
+_Avoid_: Customer Account, consumer user
+
+**Retail Portal Principal**:
+A Principal authorized to access a Retail Customer's saved addresses, commerce history, aftercare, favorites, and notifications. It is optional for B2C checkout.
+_Avoid_: Customer Account, user account
 
 **B2B Channel**:
-The Akros trade selling channel. Public visitors may see neutral product information and request access, but company-specific assortment, prices, availability, and ordering require an approved Company User.
+The Akros trade selling channel. Public visitors may see neutral product information and request access, but Counterparty-specific assortment, prices, availability, and ordering require an approved Principal acting for that Counterparty.
 
-**Company Account**:
-The commercial customer in the B2B Channel. It owns negotiated selling terms and may define users, purchasing limits, and approval rules.
+**Counterparty Buyer**:
+A Principal authorized to prepare and submit purchases for a Counterparty within its assigned limits and approval rules.
+_Avoid_: Company Buyer, Company User
 
-**Company User**:
-A person authorized to act for one or more Company Accounts. A Company User may be a Company Buyer, Company Approver, or Company Account Administrator.
+**Counterparty Approver**:
+A Principal authorized to approve or return purchases that require Counterparty approval.
+_Avoid_: Company Approver
 
-**Company Buyer**:
-A Company User authorized to prepare and submit purchases within the Company Account's assigned limits and approval rules.
-
-**Company Approver**:
-A Company User authorized to approve or return purchases that require company approval.
-
-**Company Account Administrator**:
-A Company User authorized to manage the Company Account's users and their permissions.
+**Counterparty Access Administrator**:
+A Principal authorized to manage which Principals may act for a Counterparty and with which permissions.
+_Avoid_: Company Account Administrator, account owner
 
 **Repeat Order**:
 A request to construct a new cart from a historical order's still-sellable items and configurations. Current commercial rules apply; historical price, tax, availability, shipping, and payment terms are not reinstated.
