@@ -30,6 +30,14 @@ _Avoid_: Master system, source system
 A replaceable adapter that implements an explicit contract between Akros and an External Business System. A legacy connector is evidence of a possible contract, not proof that the connected system is active or should survive.
 _Avoid_: Integration, when referring to the adapter implementation itself
 
+**Integration Hub**:
+An External Business System that coordinates business exchanges with multiple third-party systems. It may route or transform facts but is not automatically their System of Record.
+_Avoid_: Connector, ERP, System of Record
+
+**Symmy**:
+The Integration Hub used by Akros to exchange business facts with multiple third-party systems. Symmy's coordinating role does not by itself give it authority over those facts.
+_Avoid_: ERP, Connector, universal System of Record
+
 **Production Deployment Snapshot**:
 The Akros package captured approximately five days before this Wayfinder session and confirmed by the operator as live and in use. It proves which code, routes, customizations, and connector seams were deployed at capture time, but not their database-controlled enablement, traffic, schedules, or operator use.
 _Avoid_: Historical archive, when referring specifically to the current Akros package
