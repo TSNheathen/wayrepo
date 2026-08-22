@@ -1,5 +1,7 @@
 # Akros runtime evidence capture plan
 
+> **Roadmap-depth status:** This detailed capture menu is superseded for issue #5 by [Akros runtime business facts for integration and migration](./akros-runtime-business-facts.md). It is retained only as historical input for later specifications when a particular technical fact becomes decision-critical; it is not an acceptance checklist for the business roadmap.
+
 Research for the Wayfinder decision ticket **Capture runtime facts needed for integration and migration**.
 
 All source paths are relative to the `wayrepo` root. Evidence is limited to the adjacent tree under `../context`, the existing [Akros production baseline](./akros-production-baseline.md), and a safe read-only check of Akros' public HTTP surface on 2026-08-22 at approximately 15:00 UTC. The Akros package is a production deployment snapshot captured approximately five days before this session and confirmed by the operator as live and in use. No authenticated production, database, observability, provider-console, analytics, or operator-session access was available for this research.
