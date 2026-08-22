@@ -6,6 +6,18 @@ This glossary extends the canonical OntOS vocabulary in `../context/ontos/CONTEX
 
 ## Language
 
+**Akros**:
+The e-commerce product being delivered as a sibling of OntOS. Akros consumes Core capabilities but is not an OntOS Business Module or a specialization of the OntOS property/rental ERP product.
+_Avoid_: OntOS e-shop, OntOS commerce module
+
+**Core**:
+The shared, business-domain-neutral runtime and governance foundation consumed by Akros and OntOS. Core owns Strong Foundations and exposes its server-side boundary through CoreSDK; it is not a product, an ERP, or the owner of product-specific business lifecycles.
+_Avoid_: OntOS, Core/Ontos, shared ERP
+
+**Party Registry**:
+The shared register of Party identity and Counterparty relationships used by Akros and OntOS. It does not own product-specific customer profiles, purchasing authority, property/rental roles, credentials, or managed Legal Entity group structure.
+_Avoid_: Customer database, user directory, Organization Registry
+
 **External Business System**:
 A live upstream or downstream system that exchanges business facts with Akros, such as an ERP, accounting system, WMS, PIM, CRM, or bespoke service. Its product and system type must be observed rather than assumed.
 _Avoid_: ERP, when the actual system or role has not been verified
@@ -85,3 +97,69 @@ _Avoid_: Impersonation, login as customer
 
 **Customer Archive**:
 The authorized read-only experience through which a customer or operator can access retained historical orders, documents, and claims. It is not itself the statutory accounting or tax archive.
+
+## Commerce domain language
+
+**Product**:
+A good or service with a stable commercial identity that can be described, classified, related, and made available through one or more Channels. Its current offer conditions are not part of its identity.
+_Avoid_: Price, stock item, order line
+
+**Catalog**:
+The commerce domain that owns Product identity, variants and configurations, classification, descriptive facts, media references, and Product relationships.
+_Avoid_: Assortment, price list, content-management screen
+
+**Assortment**:
+The set of Products eligible for visibility or purchase in a specific Channel or for a specific Counterparty under current policy.
+_Avoid_: Catalog, inventory, price list
+
+**Pricing**:
+The commerce domain that determines applicable prices, discounts, fees, tax inputs, quantity tiers, and commercial quotations for an explicit commercial context.
+_Avoid_: Product identity, invoice, accepted Order price
+
+**Inventory**:
+The commerce domain that records or represents stock and reservations when Akros owns those lifecycles. Inventory is distinct from the customer-facing delivery promise.
+_Avoid_: Availability, assortment
+
+**Availability**:
+The current promise that a Product can be sold and delivered under an explicit commercial context. It may depend on Inventory or facts supplied by an External Business System without owning those facts.
+_Avoid_: Inventory, assortment, raw stock count
+
+**Cart**:
+A prospective set of Product selections and configurations assembled under an explicit commercial context. A Cart is mutable and does not preserve accepted commercial terms as an Order does.
+_Avoid_: Order, basket when naming the canonical domain concept
+
+**Checkout**:
+The commerce process that coordinates final validation, required customer choices, and submission of a Cart. Checkout does not own source commercial facts or the resulting Order.
+_Avoid_: Order creation domain, payment domain
+
+**Order**:
+The durable record of an accepted purchase, including the accepted commercial snapshot and its governed lifecycle.
+_Avoid_: Cart, invoice, payment
+
+**Payment**:
+The commerce domain that represents collection, authorization, settlement, cancellation, refund, and reconciliation outcomes associated with an Order.
+_Avoid_: Order status, invoice, payment-provider callback
+
+**Fulfillment**:
+The commerce domain that represents preparation, handoff, delivery, tracking, and delivery exceptions for accepted Order quantities.
+_Avoid_: Order, shipping-provider adapter
+
+**Aftercare**:
+Customer- and operator-facing post-purchase work permitted by the Order, Payment, Fulfillment, and Claim lifecycles. It coordinates those lifecycles without replacing their ownership.
+_Avoid_: Unrestricted Order editing, customer service database
+
+**Claim**:
+A governed request concerning one or more durable Order lines, with its own evidence, communication, status, deadlines, and resolution history.
+_Avoid_: Order note, generic support ticket
+
+**Akros Commerce Policy**:
+The named Akros-owned rules that specialize shared commerce behavior for its B2C and B2B Channels, Counterparty purchasing, quantities and packages, markets, and legal obligations.
+_Avoid_: Core policy, provider-specific mapping, generic settings
+
+**Storefront**:
+The customer-facing composition and presentation of Akros commerce journeys, including Channel rendering, URLs, and SEO. It consumes commerce decisions but does not own canonical commerce facts.
+_Avoid_: Commerce domain, System of Record
+
+**Commerce Operations**:
+The staff-facing composition of permissioned commerce workflows and Assisted Support. It invokes domain-owned behavior and does not provide an unrestricted alternative mutation surface.
+_Avoid_: Admin, Back Office, direct database editor
