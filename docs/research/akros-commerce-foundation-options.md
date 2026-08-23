@@ -1,5 +1,7 @@
 # Akros commerce-foundation options
 
+> **Historical evidence notice (superseded 2026-08-23):** This artifact preserves the alternatives considered before the binding OntOS product correction. Its sibling-product, separately shared Core, engine-derived foundation, and modular-monolith recommendations are rejected. The current decision is the clean [Commerce Application Composition inside OntOS](../product/akros-commerce-foundation.md). Treat engine-specific material below only as behavior and delivery-risk evidence, never target runtime, source, naming, or compatibility guidance.
+
 Research for **[Choose the commerce foundation for production Akros](https://github.com/TSNheathen/wayrepo/issues/9)**. This is decision evidence at business-roadmap depth, not an implementation design.
 
 ## Decision frame

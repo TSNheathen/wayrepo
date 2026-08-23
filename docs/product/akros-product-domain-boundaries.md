@@ -13,7 +13,7 @@ Customer variation belongs in permitted module selection, policy, settings, bran
 | Boundary | Owns | Does not own |
 | --- | --- | --- |
 | **Core** | Business-neutral OntOS identity, governance, execution, module/composition enforcement, durable-work, evidence, addressing, and shared execution mechanisms | Any commerce, ERP, customer, or provider-specific business meaning |
-| **Foundational Modules** | Shared business reality with stable meaning across multiple modules or Application Compositions, including Party identity and Counterparty relationships | Core mechanisms or customer-specific policy |
+| **Foundational Modules** | Shared business reality with stable meaning across multiple modules or Application Compositions | Core mechanisms or customer-specific policy |
 | **Commerce Business Modules** | Reusable commerce behavior across Catalog, Assortment, Pricing, Availability, Cart, Checkout, Order, Payment, Fulfillment, Aftercare, and Claim | Akros/N1 branding, customer configuration, or facts assigned to an External Business System |
 | **Commerce Application Composition** | The dependency-closed DAG, required/optional modules, and dependency rules shared by commerce customers | Customer variation or Deployment Topology |
 | **Akros Customer Configuration** | Permitted module selection, commercial policy/configuration, content, brand, locales, integration participation, and Channel Applications | Core, shared module contracts, or forked implementations |
@@ -32,7 +32,7 @@ OntOS definitions of **Party**, **Counterparty**, **Principal**, and **Legal Ent
 - a Principal is the actor exercising access or authority;
 - a Legal Entity is a managed accounting or operating company inside an OntOS Tenant.
 
-Party Registry is an OntOS Foundational Module for Party identity and Counterparty relationships. Commerce-specific roles and policies remain with Commerce Business Modules and Customer Configuration; property/rental roles remain with their owning modules. Shared use never removes Tenant and Legal Entity isolation.
+Party identity, CRM Customer, Counterparty, and commerce-profile ownership must use one OntOS-approved boundary. **Party Registry** is the current Wayfinder proposal, not yet a canonical OntOS module decision; confirmation and migration implications are tracked in [TechsioCZ/ontos#95](https://github.com/TechsioCZ/ontos/issues/95). Commerce-specific roles and policies remain with Commerce Business Modules and Customer Configuration; property/rental roles remain with their owning modules. Shared use never removes Tenant and Legal Entity isolation.
 
 Use **External Business System**, **System of Record**, and **Connector** rather than assuming an ERP topology. Use **Commerce Operations** rather than treating “Admin” or “Back Office” as a business owner.
 
@@ -48,10 +48,10 @@ Commerce behavior remains in Commerce Business Modules. Akros-specific variation
 - Keep the composition dependency-closed and Customer Configurations declarative.
 - Keep Storefront and Commerce Operations dependent on stable commerce behavior rather than making either experience the business owner.
 - Discover authority per fact and lifecycle transition; do not assume ABRA or any other External Business System is globally authoritative.
-- Keep OntOS behind the Symmy Connector; name provider-specific downstream routes as Symmy–Provider Integrations. N1's direct POHODA code is legacy evidence only.
+- Route POHODA, ABRA, HELIOS, and comparable business-system exchange through the Symmy Connector; name those downstream routes as Symmy–Provider Integrations. N1's direct POHODA code is legacy evidence only. OntOS owns the still-open decision about other provider families in [TechsioCZ/ontos#96](https://github.com/TechsioCZ/ontos/issues/96).
 - Keep Deployment Topology separate from Application Composition and Environment.
 - Record a conflict with an accepted OntOS rule explicitly and reopen that rule when necessary; never work around it silently in Akros.
 
 ## Deferred decisions
 
-This roadmap boundary does not prescribe modules, APIs, Actions, events, authorization sequences, state machines, schemas, deployment topology, provider contracts, or failure mechanics. Those details belong to later specifications and to the dedicated decisions for data authority, shared Core contract, commerce foundation, application shape, consistency, migration, and production readiness.
+This roadmap boundary does not prescribe modules, APIs, Actions, events, authorization sequences, state machines, schemas, deployment topology, provider contracts, or failure mechanics. Those details belong to later specifications and to the dedicated decisions for data authority, the OntOS kernel contract, commerce foundation, application shape, consistency, migration, and production readiness.

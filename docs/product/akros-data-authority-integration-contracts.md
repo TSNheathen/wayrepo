@@ -8,7 +8,7 @@ Accepted OntOS terminology and architectural rules have highest authority. Comme
 
 The decision prepares the OntOS side of each commerce integration contract. Choosing provider products and defining fields, endpoints, schedules, queues, exact backoff, or Deployment Topology are not prerequisites. Current Akros/WRShop integrations supply evidence, not target implementations.
 
-OntOS crosses one Symmy Connector seam. Provider-specific behavior stays downstream in named integrations such as Symmy–POHODA Integration or Symmy–ABRA Integration. A fact passing through Symmy does not give Symmy authority over it. N1's direct POHODA code and the WRShop SOAP/FTP, AbraG3, AbraApi, and other legacy Connector implementations do not survive as target architecture. Their business rules, evidence, and required mappings may survive through governed replacement contracts.
+For POHODA, ABRA, HELIOS, and comparable business-system exchange, OntOS crosses the Symmy Connector and provider-specific behavior stays downstream in named Symmy–Provider Integrations. A fact passing through Symmy does not give Symmy authority over it. N1's direct POHODA code and other legacy provider Connectors do not survive as target architecture; their business rules, evidence, and required mappings may survive through governed replacement contracts. OntOS owns the still-open boundary for payment, carrier, and other provider families in [TechsioCZ/ontos#96](https://github.com/TechsioCZ/ontos/issues/96).
 
 ## Canonical authority
 
@@ -16,8 +16,8 @@ Authority is assigned per fact or lifecycle transition. Storefront and Commerce 
 
 | Fact or transition | System of Record |
 | --- | --- |
-| Party identity and deduplication | Party Registry |
-| Counterparty relationship | Party Registry |
+| Party identity and deduplication | OntOS party-identity boundary; Party Registry is the current proposal pending [TechsioCZ/ontos#95](https://github.com/TechsioCZ/ontos/issues/95) |
+| Counterparty relationship | OntOS party/counterparty boundary pending [TechsioCZ/ontos#95](https://github.com/TechsioCZ/ontos/issues/95) |
 | Authentication credentials and sessions | BetterAuth, under the higher-authority OntOS architecture |
 | Principal binding, authorization context, and audit identity | Core |
 | Retail profile, B2B eligibility, buyer/approver roles, purchasing limits, and preferences | Owning Commerce Business Modules |
@@ -52,7 +52,7 @@ Externally supplied data exposes its issuer and freshness. Commerce Operations m
 | Assortment and Content | Customer Configuration publication flows outward through their owning modules. External input is accepted only from an explicitly declared source and cannot silently replace local merchandising or content. |
 | Pricing | Declared price inputs arrive at Pricing, which derives contextual offers. Order freezes accepted terms. |
 | Inventory and Availability | Source stock arrives as a versioned fact. Akros reservations cannot be overwritten by a stock import, and Availability derives the sell-and-deliver promise. |
-| Party and Counterparty | Identity exchange is governed in both directions. Matching, merge, and correction pass through Party Registry; Akros purchasing roles and policy cannot be overwritten externally. |
+| Party and Counterparty | Identity exchange is governed in both directions. Matching, merge, and correction pass through the OntOS-owned party identity boundary; Akros purchasing roles and policy cannot be overwritten externally. |
 | Order | A confirmed Order is handed off after commit. Correlated acceptance, rejection, processing, and later lifecycle outcomes return through governed Actions. |
 | Invoice and credit document | The issuer provides canonical metadata and an authorized Evidence Artifact reference or copy for Akros access. |
 | Payment | Akros sends an idempotent request where needed; authorization, settlement, cancellation, refund, and reconciliation outcomes return to Payment. |
@@ -64,23 +64,22 @@ Omission is never interpreted as deletion. Retirement, cancellation, correction,
 
 ## Symmy Connector contract
 
-OntOS publishes provider-neutral handoff contracts through the Symmy Connector. POHODA, ABRA, HELIOS, and other provider-specific routes remain downstream Symmy–Provider Integrations. Customer Configuration selects integration participation; it cannot replace the Connector seam or weaken these guarantees.
+OntOS publishes provider-neutral business-system handoffs through the Symmy Connector. POHODA, ABRA, HELIOS, and comparable routes remain downstream Symmy–Provider Integrations. Customer Configuration selects integration participation; it cannot preserve a direct legacy Connector or weaken the guarantees below.
 
-Every import is a source-identified, versioned fact submitted through a CoreSDK-governed domain Action. Every outbound handoff is created durably after the originating Action commits. Every callback or external outcome is a correlated, idempotent domain Action rather than a direct state overwrite. Document delivery uses authorized Evidence Artifact references. Backfill uses the same validated contract as live traffic, and reconciliation reports differences without silently changing canonical facts.
+Imports identify their issuer and version. Outbound handoffs begin only after the originating business change is committed. External outcomes are correlated to the originating intent rather than overwriting canonical facts directly. Backfill follows the same business contract as live exchange, and reconciliation reports differences without silently changing authoritative data.
 
-The minimum operational guarantees are:
+The required business outcomes are:
 
-- a stable business idempotency key for every externally caused operation;
-- Core-level prevention of a second committed business effect for the same key and content, with conflicting content rejected;
-- module- or Connector-owned reconstruction of the same bounded acknowledgement when its public interface requires repeat-response replay;
-- independent durable outcomes for batch items;
-- no automatic retry of business rejection;
-- bounded retry of transient failure followed by visible recovery work;
-- replay of the immutable original operation without a second business effect;
-- resumable, checkpointed, counted, and reconciled backfill;
-- reconciliation by identifiers, lifecycle state, counts, and financial totals where applicable;
-- quarantine of stale or conflicting authoritative facts rather than arrival-order overwrite; and
-- durable confirmed Orders regardless of outbound-system availability.
+- duplicate delivery never creates a second business effect;
+- conflicting reuse is visible and rejected;
+- a batch preserves the outcome of each item;
+- business rejection is not mistaken for a transient failure;
+- transient failure leads to bounded retry and visible recovery work;
+- backfill is resumable, measurable, and reconcilable;
+- stale or conflicting authoritative facts are quarantined rather than accepted by arrival order; and
+- confirmed Orders remain durable when an outbound system is unavailable.
+
+The exact Core/module replay contract is awaiting OntOS confirmation in [TechsioCZ/ontos#97](https://github.com/TechsioCZ/ontos/issues/97).
 
 ## Runtime and recovery boundary
 

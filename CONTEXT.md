@@ -14,33 +14,9 @@ _Avoid_: Separate product, Core fork, Akros module family
 The second confirmed Customer Configuration of the Commerce Application Composition and an existing bikeshop customer on the legacy WRShop engine. Its direct POHODA integration is legacy and migration evidence, not the target integration architecture.
 _Avoid_: Separate product, POHODA-specific OntOS fork
 
-**Core**:
-The small mandatory kernel inside OntOS. Core owns business-neutral identity, governance, execution, module/composition enforcement, durable-work, evidence, addressing, and shared execution mechanisms. It is not separately consumed, forked per customer, or the owner of business lifecycles.
-_Avoid_: Separate platform, shared product, commerce core, customer Core
-
 **Commerce Application Composition**:
-The named, reusable, versioned, dependency-closed DAG of OntOS Foundational and Business Modules that supplies commerce capability to Akros, N1, and later Customer Configurations. It contains no third-party commerce-engine runtime or derived source.
+The reusable OntOS Application Composition that supplies commerce capability to Akros, N1, and later Customer Configurations. It contains no third-party commerce-engine runtime or derived source.
 _Avoid_: Akros product, module fork, customer-specific commerce foundation
-
-**Customer Configuration**:
-A declarative customer-specific configuration of an Application Composition. It may select permitted optional modules and define policies, settings, branding, locales, Connectors, and integration participation. It cannot fork Core, change shared module contracts, or create customer-specific module implementations.
-_Avoid_: Customer fork, separate product, Deployment Topology
-
-**Environment**:
-A topology-neutral lifecycle context for a Customer Configuration, such as Production, Staging, or Development. It does not imply geographic placement, data residency, isolated infrastructure, or shared multi-tenancy.
-_Avoid_: Deployment, region, Tenant
-
-**Deployment Topology**:
-The physical mapping of Customer Configurations, Environments, Tenants, modules, data stores, workers, and Channel Applications onto infrastructure. It decides customer isolation, shared multi-tenancy, placement, and regional or residency constraints.
-_Avoid_: Application Composition, Customer Configuration, Environment
-
-**Channel Application**:
-A customer- or partner-facing application that composes public Business Module contracts, such as an Akros or N1 Storefront. It may live in the OntOS monorepo and deploy separately but owns presentation and journeys rather than canonical commerce facts.
-_Avoid_: Business Module, System of Record, mandatory Shell route
-
-**Party Registry**:
-The OntOS Foundational Module that owns Party identity and Counterparty relationships shared by commerce and other Application Compositions. It does not own commerce-specific profiles, purchasing authority, property/rental roles, credentials, or managed Legal Entity group structure.
-_Avoid_: Customer database, user directory, Organization Registry
 
 **External Business System**:
 A live upstream or downstream system that exchanges business facts with Akros, such as an ERP, accounting system, WMS, PIM, CRM, or bespoke service. Its product and system type must be observed rather than assumed.
@@ -49,18 +25,6 @@ _Avoid_: ERP, when the actual system or role has not been verified
 **System of Record**:
 The system authorized to decide a specific business fact or lifecycle transition. Authority is assigned per fact or transition and need not belong to one system globally.
 _Avoid_: Master system, source system
-
-**Connector**:
-A replaceable Adapter at an explicit external-system seam. In the target architecture OntOS crosses the Symmy Connector; direct legacy provider Connectors remain evidence rather than target implementations.
-_Avoid_: Integration, when referring to the adapter implementation itself
-
-**Symmy Connector**:
-The single OntOS-to-Symmy integration seam. OntOS Business Modules publish provider-neutral business handoff contracts; the Connector adapts them to Symmy without owning business facts or lifecycle authority.
-_Avoid_: Direct provider Connector, System of Record, Core capability
-
-**Symmy–Provider Integration**:
-A provider-specific integration operated downstream through Symmy and named for the concrete system, such as Symmy–POHODA Integration or Symmy–ABRA Integration.
-_Avoid_: OntOS Connector, unnamed ERP integration, Core adapter
 
 **Connector Registry**:
 The module-owned record that correlates an OntOS resource with identifiers issued by one External Business System, including the provenance and lifecycle needed for dependable exchange. Owning the mapping does not make OntOS the issuer of the external identifier.
@@ -71,8 +35,8 @@ An External Business System that coordinates business exchanges with multiple th
 _Avoid_: Connector, ERP, System of Record
 
 **Symmy**:
-The Integration Hub through which OntOS exchanges business facts with provider systems. Symmy's coordinating role does not by itself give it authority over those facts.
-_Avoid_: ERP, Connector, universal System of Record
+The Integration Hub used for the OntOS business-system routes confirmed by this roadmap. Symmy's coordinating role does not by itself give it authority over exchanged facts. OntOS has not yet confirmed whether every other provider family belongs behind the same hub.
+_Avoid_: ERP, Connector, universal provider gateway, universal System of Record
 
 **Production Deployment Snapshot**:
 The Akros package captured approximately five days before this Wayfinder session and confirmed by the operator as live and in use. It proves which code, routes, customizations, and connector seams were deployed at capture time, but not their database-controlled enablement, traffic, schedules, or operator use.

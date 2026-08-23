@@ -1,5 +1,7 @@
 # Akros data-authority and integration prerequisites
 
+> **Historical evidence notice (superseded 2026-08-23):** This research captured the decision frame before the OntOS composition correction. Its optional-Symmy and direct-Connector alternatives are not current architecture. For POHODA, ABRA, HELIOS, and comparable business-system routes, use the [corrected integration decision](../product/akros-data-authority-integration-contracts.md); the scope of Symmy for other provider families awaits [TechsioCZ/ontos#96](https://github.com/TechsioCZ/ontos/issues/96).
+
 Research for **[Define Akros data authority and integration contracts](https://github.com/TSNheathen/wayrepo/issues/8)**.
 
 This note stays at business-roadmap depth. It identifies what current evidence can support in the authority decision and, equally importantly, what still needs an accountable owner confirmation. The ticket prepares the **Akros side** of each contract. It does not require discovery of the systems behind Symmy and does not select field schemas, endpoints, schedules, deployment topology, or provider implementations.

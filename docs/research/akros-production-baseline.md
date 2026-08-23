@@ -248,7 +248,7 @@ This research supports the following decision sequence:
 
 1. **Audit the live Akros feature and data baseline.** Resolve which documented/supported behaviors are actually used and establish volumes and operational dependencies.
 2. **Define “complete Akros.”** Decide whether launch includes B2C and B2B, and classify every legacy capability as preserve, improve, archive, or drop.
-3. **Set Systems of Record and domain boundaries.** Decide field and lifecycle ownership among each discovered External Business System, shared Core/Ontos, e-commerce domains, Akros customization, and the administration/back office.
+3. **Set Systems of Record and domain boundaries.** Decide field and lifecycle ownership among each discovered External Business System, the OntOS Core/Business Module boundary, reusable commerce domains, Akros Customer Configuration, and Commerce Operations.
 4. **Choose the surviving external-business-system contracts.** First identify the systems actually in use and their roles; then specify entity contracts, identity mapping, status semantics, idempotency, retries, reconciliation, backfill, observability, and retirement of obsolete connector generations. ABRA is one evidenced candidate, not an assumption.
 5. **Lock Akros-specific commerce rules.** Decide product grouping/variants, configurations/components, packaging/minimum quantities, price and discount precedence, store access, account hierarchy, approval, checkout and legal rules.
 6. **Choose migration and cutover strategy.** Define what moves, what remains read-only, URL/SEO continuity, coexistence and rollback, data cleansing, and acceptance evidence.

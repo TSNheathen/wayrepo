@@ -1,5 +1,7 @@
 # Ontos, ERP, and prior commerce attempts against production Akros
 
+> **Historical evidence notice (superseded 2026-08-23):** This assessment predates the accepted OntOS product/composition model and the current independently deployable MicroVertical architecture. Its modular-monolith and separately shared-kernel framing is not current. Use the [OntOS kernel contract](../product/ontos-kernel-contract.md) for the accepted roadmap direction and the linked OntOS architect-review issues for implementation gaps.
+
 Research for the Wayfinder ticket **Assess Ontos, ERP overlap, and prior commerce attempts against Akros**.
 
 ## Question
