@@ -14,6 +14,14 @@ _Avoid_: OntOS e-shop, OntOS commerce module
 The shared, business-domain-neutral runtime and governance foundation consumed by Akros and OntOS. Core owns Strong Foundations and exposes its server-side boundary through CoreSDK; it is not a product, an ERP, or the owner of product-specific business lifecycles.
 _Avoid_: OntOS, Core/Ontos, shared ERP
 
+**Akros Commerce Foundation**:
+The clean OntOS-governed foundation formed by Core and the Akros Commerce Modules needed for Production-complete Launch. It contains no third-party commerce-engine runtime or derived source and is not a universal commerce platform.
+_Avoid_: Medusa compatibility layer, generic commerce platform, OntOS e-shop
+
+**Akros Commerce Module**:
+A business boundary that owns one e-commerce domain for Akros under Core governance. It is not an OntOS Business Module; reuse outside Akros requires a second concrete product with the same meaning and ownership.
+_Avoid_: OntOS Business Module, Medusa module, feature plugin
+
 **Party Registry**:
 The shared register of Party identity and Counterparty relationships used by Akros and OntOS. It does not own product-specific customer profiles, purchasing authority, property/rental roles, credentials, or managed Legal Entity group structure.
 _Avoid_: Customer database, user directory, Organization Registry
