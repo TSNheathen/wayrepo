@@ -30,6 +30,14 @@ _Avoid_: Master system, source system
 A replaceable adapter that implements an explicit contract between Akros and an External Business System. A legacy connector is evidence of a possible contract, not proof that the connected system is active or should survive.
 _Avoid_: Integration, when referring to the adapter implementation itself
 
+**Akros Integration Boundary**:
+The provider-neutral governed seam through which Akros exchanges source facts, business handoffs, outcomes, and external identifiers using a direct Connector, the optional Symmy Connector, or an explicit coexistence of both. It carries no business authority of its own.
+_Avoid_: Symmy, legacy adapter, universal integration hub
+
+**Connector Registry**:
+The Akros-owned record that correlates an Akros identity with identifiers issued by one External Business System, including the provenance and lifecycle needed for dependable exchange. Owning the mapping does not make Akros the issuer of the external identifier.
+_Avoid_: Master identifier, shared external ID field
+
 **Integration Hub**:
 An External Business System that coordinates business exchanges with multiple third-party systems. It may route or transform facts but is not automatically their System of Record.
 _Avoid_: Connector, ERP, System of Record
