@@ -4,11 +4,11 @@ Decision asset for **[Define Akros data authority and integration contracts](htt
 
 ## Authority and scope
 
-Accepted OntOS terminology and architectural rules have highest authority. This decision specializes them for Akros; it does not create a parallel architecture.
+Accepted OntOS terminology and architectural rules have highest authority. Commerce is one OntOS Application Composition; Akros and N1 are Customer Configurations of it. This decision specializes integration authority for the Akros configuration without creating a parallel product or architecture.
 
-The decision prepares the Akros side of each integration contract. Discovering the systems behind Symmy, choosing provider products, and defining fields, endpoints, schedules, queues, exact backoff, or deployment topology are not prerequisites. Current Akros/WRShop and Symmy supply evidence, not target architecture.
+The decision prepares the OntOS side of each commerce integration contract. Choosing provider products and defining fields, endpoints, schedules, queues, exact backoff, or Deployment Topology are not prerequisites. Current Akros/WRShop integrations supply evidence, not target implementations.
 
-Symmy is an optional, replaceable Integration Hub alongside direct Connectors. A fact passing through Symmy does not give Symmy authority over it. ABRA is not an assumed dependency, and the WRShop SOAP/FTP, AbraG3, AbraApi, and other legacy Connector implementations do not survive the migration. Their business rules, evidence, and required mappings may survive through governed replacement contracts.
+OntOS crosses one Symmy Connector seam. Provider-specific behavior stays downstream in named integrations such as Symmy–POHODA Integration or Symmy–ABRA Integration. A fact passing through Symmy does not give Symmy authority over it. N1's direct POHODA code and the WRShop SOAP/FTP, AbraG3, AbraApi, and other legacy Connector implementations do not survive as target architecture. Their business rules, evidence, and required mappings may survive through governed replacement contracts.
 
 ## Canonical authority
 
@@ -20,12 +20,12 @@ Authority is assigned per fact or lifecycle transition. Storefront and Commerce 
 | Counterparty relationship | Party Registry |
 | Authentication credentials and sessions | BetterAuth, under the higher-authority OntOS architecture |
 | Principal binding, authorization context, and audit identity | Core |
-| Retail profile, B2B eligibility, buyer/approver roles, purchasing limits, and preferences | Akros commerce domains |
-| Channel access and purchasing policy | Akros Commerce Policy |
+| Retail profile, B2B eligibility, buyer/approver roles, purchasing limits, and preferences | Owning Commerce Business Modules |
+| Channel access and purchasing policy | Commerce policy plus Customer Configuration |
 | Product identity, variants/configurations, classification, and relationships | Catalog |
-| Channel/Counterparty visibility and sellability | Assortment plus Akros Commerce Policy |
-| Akros-authored descriptions, media, merchandising, navigation, legal pages, and SEO | Akros Content |
-| Imported source fact | Its declared issuer for the raw fact; the receiving Akros domain owns its validated commerce representation |
+| Channel/Counterparty visibility and sellability | Assortment plus Commerce policy and Customer Configuration |
+| Customer-authored descriptions, media, merchandising, navigation, legal pages, and SEO | Owning Content/Catalog module plus Customer Configuration |
+| Imported source fact | Its declared issuer for the raw fact; the receiving Business Module owns its validated commerce representation |
 | Applicable selling price, discount, fee, tax input, and quotation | Pricing |
 | Accepted price and tax | Immutable Order snapshot |
 | Externally reported physical stock | Its declared issuer |
@@ -34,13 +34,13 @@ Authority is assigned per fact or lifecycle transition. Storefront and Commerce 
 | Accepted purchase and commercial snapshot | Order |
 | External processing acceptance, rejection, or reference | The receiving system for its outcome; Order records the correlated result |
 | Statutory Invoice or credit document | The issuing financial system |
-| Customer-facing financial-document access | Akros projection or Customer Archive |
+| Customer-facing financial-document access | Commerce projection or Customer Archive |
 | Provider transaction and settlement outcome | Payment provider |
 | Order-level payment state and reconciliation | Payment |
 | Physical warehouse or carrier event | The executing system |
 | Consolidated customer-facing preparation, delivery, tracking, and exception lifecycle | Fulfillment |
 | External identifier | Its issuing system |
-| Correlation between Akros and external identifiers | Connector Registry |
+| Correlation between OntOS and external identifiers | Connector Registry |
 
 Externally supplied data exposes its issuer and freshness. Commerce Operations may invoke permissioned correction or recovery Actions but never acquires authority by doing so.
 
@@ -49,7 +49,7 @@ Externally supplied data exposes its issuer and freshness. Commerce Operations m
 | Area | Required flow and boundary rule |
 | --- | --- |
 | Product and Catalog | Authoritative source facts arrive through governed imports; validated canonical commerce projections may be published outward. |
-| Assortment and Content | Akros-owned publication flows outward. External input is accepted only from an explicitly declared source and cannot silently replace local merchandising or content. |
+| Assortment and Content | Customer Configuration publication flows outward through their owning modules. External input is accepted only from an explicitly declared source and cannot silently replace local merchandising or content. |
 | Pricing | Declared price inputs arrive at Pricing, which derives contextual offers. Order freezes accepted terms. |
 | Inventory and Availability | Source stock arrives as a versioned fact. Akros reservations cannot be overwritten by a stock import, and Availability derives the sell-and-deliver promise. |
 | Party and Counterparty | Identity exchange is governed in both directions. Matching, merge, and correction pass through Party Registry; Akros purchasing roles and policy cannot be overwritten externally. |
@@ -62,16 +62,17 @@ Externally supplied data exposes its issuer and freshness. Commerce Operations m
 
 Omission is never interpreted as deletion. Retirement, cancellation, correction, and other destructive meanings require explicit lifecycle operations.
 
-## Connector contract
+## Symmy Connector contract
 
-The Akros Integration Boundary supports three routing choices per flow: a direct Connector, the optional Symmy Connector, or both under an explicit coexistence rule. Provider selection and implementation placement follow later; neither may weaken these guarantees.
+OntOS publishes provider-neutral handoff contracts through the Symmy Connector. POHODA, ABRA, HELIOS, and other provider-specific routes remain downstream Symmy–Provider Integrations. Customer Configuration selects integration participation; it cannot replace the Connector seam or weaken these guarantees.
 
 Every import is a source-identified, versioned fact submitted through a CoreSDK-governed domain Action. Every outbound handoff is created durably after the originating Action commits. Every callback or external outcome is a correlated, idempotent domain Action rather than a direct state overwrite. Document delivery uses authorized Evidence Artifact references. Backfill uses the same validated contract as live traffic, and reconciliation reports differences without silently changing canonical facts.
 
 The minimum operational guarantees are:
 
 - a stable business idempotency key for every externally caused operation;
-- exact-result replay for the same key and content, with conflicting content rejected;
+- Core-level prevention of a second committed business effect for the same key and content, with conflicting content rejected;
+- module- or Connector-owned reconstruction of the same bounded acknowledgement when its public interface requires repeat-response replay;
 - independent durable outcomes for batch items;
 - no automatic retry of business rejection;
 - bounded retry of transient failure followed by visible recovery work;

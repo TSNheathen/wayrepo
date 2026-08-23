@@ -2,17 +2,17 @@
 
 Decision asset for **[Choose the commerce foundation for production Akros](https://github.com/TSNheathen/wayrepo/issues/9)**.
 
-## Decision
+## Decision — corrected by the OntOS kernel decision
 
-Production Akros will use a **clean OntOS-governed, Core-native commerce foundation**. Akros remains a sibling product rather than an OntOS Business Module. Core remains the shared business-neutral foundation, while Akros Commerce Modules own the e-commerce domains and Akros owns its product policy, Channels, content, journeys, and operating model.
+Production Akros will use the clean **Commerce Application Composition inside OntOS**. OntOS is the product; Core is its small internal kernel. Reusable commerce behavior belongs to OntOS Foundational and Business Modules. Akros and N1 are declarative Customer Configurations of the same dependency-closed composition, never sibling products or owners of forked modules.
 
 The foundation contains no Medusa runtime, package, schema, API, workflow, Admin component, copied source, compatibility layer, or transitional deployment. Medusa and other commerce engines may be read only as behavioral evidence and sources of independent acceptance scenarios. Renaming or selectively copying their code is not an acceptable route because it remains derived architecture and source.
 
 The no-Medusa constraint is binding. If it conflicts with delivery timing, the roadmap removes non-launch scope or reforecasts delivery rather than silently introducing an engine dependency.
 
-## Foundation shape
+## Composition shape
 
-The initial product is one modular monolith using the accepted OntOS architecture:
+The Commerce Application Composition uses the accepted OntOS architecture:
 
 - CoreSDK-governed Actions and reads;
 - explicit business ownership and one writer per canonical aggregate;
@@ -20,11 +20,12 @@ The initial product is one modular monolith using the accepted OntOS architectur
 - tenant and Legal Entity isolation;
 - audit, Evidence Artifacts, domain events, and durable outbox work;
 - module-owned canonical data rather than a generic entity store; and
+- independently deployable MicroVertical seams with contract-only communication; and
 - Storefront and Commerce Operations as composition surfaces over module-owned behavior.
 
-Akros Commerce Modules cover only the e-commerce domains required by the accepted cutline: Catalog, Assortment, Pricing, Inventory, Availability, Cart, Checkout, Order, Payment, Fulfillment, Aftercare, and Claim. Akros-specific Content and Commerce Policy remain product-owned. Shared foundations remain in Core or another shared business foundation only where Akros and a second concrete product prove the same meaning and ownership.
+Commerce Business Modules cover the e-commerce domains required by the accepted cutline: Catalog, Assortment, Pricing, Inventory, Availability, Cart, Checkout, Order, Payment, Fulfillment, Aftercare, and Claim. Akros-specific Content and Commerce Policy are declarative Customer Configuration over those modules. Shared business reality remains in Foundational or Business Modules rather than expanding Core.
 
-The architecture does not introduce distributed services, synchronous dual writes, nested cross-runtime transactions, a generic plugin marketplace, or a universal commerce framework as launch requirements.
+MicroVerticals may be co-located but must remain independently deployable. The architecture does not introduce synchronous dual writes, cross-module transactions, private implementation imports, a generic plugin marketplace, or a universal commerce framework.
 
 ## Scope and behavioral authority
 
@@ -51,7 +52,7 @@ Every state change is permissioned, policy-checked, attributed, and audited. Exi
 
 The foundation is not considered production-commerce capable until evidence proves:
 
-- exact-result idempotency and business duplicate prevention;
+- Core-level business-effect duplicate prevention plus module-owned reconstruction of repeat responses;
 - durable asynchronous work with crash recovery;
 - fail-closed production identity, authorization, policy, and secrets;
 - tenant and Legal Entity isolation;
@@ -74,7 +75,7 @@ The evidence assessment recommended a staged Medusa-derived route on delivery-ri
 
 Another established headless engine is rejected because it replaces the prohibited dependency with a different engine dependency, lacks comparable Akros evidence, and still requires rebuilding Akros-specific behavior and Commerce Operations. A generic engine evaluation may inform behavior but cannot become the foundation without reopening this decision.
 
-A clean native foundation has the largest implementation and proof burden. It is nevertheless selected deliberately because OntOS is the highest architectural authority and the product owner prohibits Medusa-derived runtime or source. The scope is controlled through the Akros cutline rather than through reuse of a general commerce engine.
+A clean native composition has the largest implementation and proof burden. It is nevertheless selected deliberately because OntOS is the product architecture and Medusa-derived runtime or source is prohibited. Scope is controlled through the Akros cutline and reusable module DAG rather than a customer fork or general commerce engine.
 
 Research evidence: [Akros commerce-foundation options](../research/akros-commerce-foundation-options.md).
 
