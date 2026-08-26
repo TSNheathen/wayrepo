@@ -35,8 +35,20 @@ An External Business System that coordinates business exchanges with multiple th
 _Avoid_: Connector, ERP, System of Record
 
 **Symmy**:
-The Integration Hub used for the OntOS business-system routes confirmed by this roadmap. Symmy's coordinating role does not by itself give it authority over exchanged facts. OntOS has not yet confirmed whether every other provider family belongs behind the same hub.
+The preferred, non-exclusive Integration Hub for external invoicing, accounting, ERP, WMS/PIM, and comparable business-system integrations that Symmy provides. Its coordinating role does not give it authority over exchanged facts, and it is not the route for every external provider.
 _Avoid_: ERP, Connector, universal provider gateway, universal System of Record
+
+**Symmy Connector**:
+The OntOS-to-Symmy boundary through which owning Foundational and Business Modules exchange provider-neutral business facts with Symmy. It does not own those facts or provider-specific downstream behavior.
+_Avoid_: Universal external-provider gateway, System of Record, Core capability
+
+**Symmy–Provider Integration**:
+A provider-specific route operated downstream through Symmy, such as Symmy–POHODA Integration or Symmy–HELIOS Integration.
+_Avoid_: OntOS-owned provider adapter, unnamed ERP integration
+
+**Direct Provider Adapter**:
+An owner-local external adapter used for a provider family intentionally outside Symmy, or when Symmy does not supply the required integration. It implements an owning module's external contract without gaining authority over the exchanged facts.
+_Avoid_: Direct legacy Connector, Core integration, System of Record
 
 **Production Deployment Snapshot**:
 The Akros package captured approximately five days before this Wayfinder session and confirmed by the operator as live and in use. It proves which code, routes, customizations, and connector seams were deployed at capture time, but not their database-controlled enablement, traffic, schedules, or operator use.

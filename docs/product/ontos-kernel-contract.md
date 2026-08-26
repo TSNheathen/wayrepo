@@ -47,9 +47,9 @@ Committed business facts and required external handoffs must survive routine fai
 
 ## Symmy and External Business Systems
 
-Symmy is outside Core. For the POHODA, ABRA, HELIOS, and comparable business-system routes decided here, OntOS crosses the Symmy Connector and provider-specific behavior remains downstream in named Symmy–Provider Integrations. N1's direct POHODA integration is legacy and migration evidence, not the target OntOS interface.
+Symmy is outside Core. It is the preferred, non-exclusive Integration Hub for external invoicing, accounting, ERP, WMS/PIM, and comparable business-system integrations it provides. Those routes cross the Symmy Connector, with provider-specific behavior downstream in named Symmy–Provider Integrations.
 
-Whether payment, carrier, email, search, tax, media, and other provider families also use Symmy is intentionally not inferred here; OntOS owns that boundary decision in [TechsioCZ/ontos#96](https://github.com/TechsioCZ/ontos/issues/96).
+Payments and other provider families outside Symmy use owner-local Direct Provider Adapters. OntOS may also supply a direct business-system integration when Symmy lacks the required route. Both paths remain outside Core and preserve the owning module's authority. N1's direct POHODA integration is legacy and migration evidence, not the target implementation.
 
 ## Production-commerce gates
 

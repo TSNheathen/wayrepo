@@ -26,7 +26,7 @@ This is why one customer can manage products, translations, warehouses, prices, 
 
 ### One capability model, variable authority
 
-The evidence supports a modular product in which the same business capability can run under different authority arrangements per customer. The reusable module owns the OntOS meaning and guarantees. In the confirmed target, OntOS crosses one Symmy Connector boundary and provider-specific translation is a downstream Symmy–Provider Integration. This applies at least to:
+The evidence supports a modular product in which the same business capability can run under different authority arrangements per customer. The reusable module owns the OntOS meaning and guarantees. In the confirmed target, Symmy is the preferred, non-exclusive Integration Hub for the business-system integrations it provides: OntOS crosses the Symmy Connector and provider-specific translation is a downstream Symmy–Provider Integration. An owner-local Direct Provider Adapter remains permitted when Symmy does not provide the required route. This applies at least to:
 
 - Product/Catalog facts, categories, variants, attributes, media metadata, and translations;
 - pricing inputs, customer-specific terms, and accepted commercial snapshots;

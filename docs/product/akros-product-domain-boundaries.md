@@ -20,7 +20,8 @@ Customer variation belongs in permitted module selection, policy, settings, bran
 | **Storefront** | Customer-facing composition, presentation, URLs, and SEO | Canonical commerce facts and lifecycle authority |
 | **Commerce Operations** | Staff-facing workflow composition and Assisted Support | An unrestricted alternative to domain-owned behavior |
 | **External Business System** | Only the facts and lifecycle decisions for which it is the assigned System of Record | Automatic authority over all Akros business data |
-| **Symmy Connector** | The single OntOS-to-Symmy exchange seam | Provider-specific downstream routes, canonical commerce policy, or business authority |
+| **Symmy Connector** | The OntOS boundary to the preferred, non-exclusive Symmy Integration Hub for business-system routes it provides | Provider-specific downstream routes, canonical commerce policy, or business authority |
+| **Direct Provider Adapter** | Owner-local exchange with a provider family outside Symmy or a business-system route Symmy does not provide | Core behavior, cross-module authority, or a preserved legacy Connector |
 | **Infrastructure** | Operational execution, deployment, storage, observability, backup, and recovery | Business meaning or business ownership |
 
 ## Canonical language
@@ -48,7 +49,7 @@ Commerce behavior remains in Commerce Business Modules. Akros-specific variation
 - Keep the composition dependency-closed and Customer Configurations declarative.
 - Keep Storefront and Commerce Operations dependent on stable commerce behavior rather than making either experience the business owner.
 - Discover authority per fact and lifecycle transition; do not assume ABRA or any other External Business System is globally authoritative.
-- Route POHODA, ABRA, HELIOS, and comparable business-system exchange through the Symmy Connector; name those downstream routes as Symmy–Provider Integrations. N1's direct POHODA code is legacy evidence only. OntOS owns the still-open decision about other provider families in [TechsioCZ/ontos#96](https://github.com/TechsioCZ/ontos/issues/96).
+- Prefer the Symmy Connector for POHODA, ABRA, HELIOS, and comparable business-system exchange that Symmy provides; name those downstream routes as Symmy–Provider Integrations. Use owner-local Direct Provider Adapters for payments and other provider families outside Symmy, or where Symmy lacks a required route. N1's direct POHODA code is legacy evidence only.
 - Keep Deployment Topology separate from Application Composition and Environment.
 - Record a conflict with an accepted OntOS rule explicitly and reopen that rule when necessary; never work around it silently in Akros.
 

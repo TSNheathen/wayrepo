@@ -8,7 +8,7 @@ Accepted OntOS terminology and architectural rules have highest authority. Comme
 
 The decision prepares the OntOS side of each commerce integration contract. Choosing provider products and defining fields, endpoints, schedules, queues, exact backoff, or Deployment Topology are not prerequisites. Current Akros/WRShop integrations supply evidence, not target implementations.
 
-For POHODA, ABRA, HELIOS, and comparable business-system exchange, OntOS crosses the Symmy Connector and provider-specific behavior stays downstream in named Symmy–Provider Integrations. A fact passing through Symmy does not give Symmy authority over it. N1's direct POHODA code and other legacy provider Connectors do not survive as target architecture; their business rules, evidence, and required mappings may survive through governed replacement contracts. OntOS owns the still-open boundary for payment, carrier, and other provider families in [TechsioCZ/ontos#96](https://github.com/TechsioCZ/ontos/issues/96).
+Symmy is the preferred, non-exclusive Integration Hub for external invoicing, accounting, ERP, WMS/PIM, and comparable business-system integrations it provides. Those routes cross the Symmy Connector and keep provider-specific behavior downstream in named Symmy–Provider Integrations. Payment and other provider families outside Symmy use owner-local Direct Provider Adapters. OntOS may also provide a direct integration when Symmy lacks a required business-system route. Neither path gives the transporter authority over a fact. N1's direct POHODA code and other legacy provider Connectors remain behavior and migration evidence, not target implementations.
 
 ## Canonical authority
 
@@ -64,7 +64,9 @@ Omission is never interpreted as deletion. Retirement, cancellation, correction,
 
 ## Symmy Connector contract
 
-OntOS publishes provider-neutral business-system handoffs through the Symmy Connector. POHODA, ABRA, HELIOS, and comparable routes remain downstream Symmy–Provider Integrations. Customer Configuration selects integration participation; it cannot preserve a direct legacy Connector or weaken the guarantees below.
+OntOS publishes provider-neutral business-system handoffs through the Symmy Connector where Symmy supplies the route. POHODA, ABRA, HELIOS, and comparable provider-specific behavior remains downstream in Symmy–Provider Integrations. Customer Configuration selects integration participation but cannot preserve a direct legacy Connector or weaken the guarantees below.
+
+A Direct Provider Adapter is permitted for payments and other provider families intentionally outside Symmy, or when Symmy does not supply a required business-system integration. It stays owner-local, obeys the same authority and recovery rules, and cannot bypass the owning Business Module's public contract.
 
 Imports identify their issuer and version. Outbound handoffs begin only after the originating business change is committed. External outcomes are correlated to the originating intent rather than overwriting canonical facts directly. Backfill follows the same business contract as live exchange, and reconciliation reports differences without silently changing authoritative data.
 
@@ -83,7 +85,7 @@ The exact Core/module replay contract is awaiting OntOS confirmation in [Techsio
 
 ## Runtime and recovery boundary
 
-Browsing and Checkout use validated local projections rather than synchronously depending on Symmy. Price, tax, Availability, and eligibility are revalidated before confirmation; a launch-critical fact that is too stale fails clearly before confirmation. Required payment authorization may interact synchronously with its provider through an idempotent attempt. Order handoff and other post-confirmation exchanges are asynchronous.
+Browsing and Checkout use validated local projections rather than synchronously depending on Symmy. Price, tax, Availability, and eligibility are revalidated before confirmation; a launch-critical fact that is too stale fails clearly before confirmation. Required payment authorization may interact synchronously with its provider through an owner-local Direct Provider Adapter. Order handoff and other post-confirmation exchanges are asynchronous.
 
 Commerce Operations exposes freshness, backlog, attempts, ownership, and reconciliation state. Manual retry, replay, backfill, correction, or abandonment requires permission, preview, reason, and audit attribution. High-risk recovery follows OntOS authorization and policy, including approval where the accepted policy requires it.
 

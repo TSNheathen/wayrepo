@@ -38,15 +38,17 @@ Deployment Topology determines matters such as customer isolation versus shared 
 
 ### Symmy Connector
 
-For the POHODA, ABRA, HELIOS, and comparable business-system routes decided by this roadmap, the OntOS-to-Symmy integration boundary. OntOS does not preserve direct legacy Connectors for those systems.
+The OntOS-to-Symmy boundary used when the preferred, non-exclusive Symmy Integration Hub supplies an external invoicing, accounting, ERP, WMS/PIM, or comparable business-system route. Owning modules exchange provider-neutral business facts through this boundary.
 
 ### Symmy–Provider Integration
 
 A downstream provider-specific integration operated through Symmy, named for the concrete system—for example **Symmy–POHODA Integration**, **Symmy–ABRA Integration**, or **Symmy–HELIOS Integration**.
 
-The N1 target Customer Configuration enables the Symmy Connector and uses a Symmy–POHODA Integration. N1's current legacy direct POHODA integration is migration and behavioral evidence, not the target OntOS integration architecture.
+The N1 target Customer Configuration enables the Symmy Connector and prefers a Symmy–POHODA Integration when it satisfies the required contract. N1's current legacy direct POHODA integration is migration and behavioral evidence, not the target implementation.
 
-Whether every other provider family, including payment and carrier providers, must cross this seam is an OntOS-owned decision tracked in [TechsioCZ/ontos#96](https://github.com/TechsioCZ/ontos/issues/96).
+### Direct Provider Adapter
+
+An owner-local external adapter used for payments and other provider families intentionally outside Symmy, or when Symmy does not supply the required business-system integration. It obeys the owning module's public contract and does not acquire authority over business facts.
 
 ## Example
 
@@ -70,5 +72,5 @@ OntOS
 - Preserve dependency-closed composition as the target: Customer Configurations may choose only valid optional modules and cannot bypass the module graph once enforcement is implemented.
 - Keep Core's enforcement generic: Commerce owns the business meaning of its graph, while Core must validate it without learning commerce meaning.
 - Keep Production/Staging/Development as topology-neutral Environments. Do not encode geography or decide customer isolation versus multi-tenancy here.
-- Correct the N1 target integration statement: OntOS uses the Symmy Connector; POHODA-specific behavior is a Symmy–POHODA Integration. The current direct legacy POHODA integration is evidence only.
+- Prefer the Symmy Connector for the business-system integrations Symmy supplies; keep Symmy–Provider Integrations downstream and use owner-local Direct Provider Adapters for provider families outside Symmy or missing Symmy routes.
 - Track unresolved OntOS implementation and boundary questions through the linked architect-review issues rather than presenting them as already implemented.
