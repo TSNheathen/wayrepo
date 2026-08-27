@@ -41,7 +41,7 @@ This is the accepted target contract, not a claim that the current runtime alrea
 
 ## Continuity and evidence rules
 
-Core must prevent a repeated request from committing the same business effect twice. Business Modules remain responsible for the business response and may reconstruct it from canonical state when repeat delivery requires it. The exact Core/module replay split is awaiting OntOS confirmation in [TechsioCZ/ontos#97](https://github.com/TechsioCZ/ontos/issues/97).
+As confirmed in [TechsioCZ/ontos#97](https://github.com/TechsioCZ/ontos/issues/97), Core owns invocation identity, canonical request-content conflict detection, and prevention of a second committed business effect. A succeeded duplicate is already committed: Core does not rerun the handler or persist and replay arbitrary business response payloads. The owning Business Module returns a stable ResourceRef/receipt or reconstructs a semantically stable response from canonical state when its interface requires repeat delivery. Byte-identical acknowledgement replay is an explicit bounded Business Module or Connector contract. In-flight duplicates and prior failed attempts retain their own lifecycle and retry policy; they are not successful-response replay.
 
 Committed business facts and required external handoffs must survive routine failure and support visible recovery. Shared media, evidence, search, and reporting foundations provide common controls; their business purpose and correctness remain module-owned.
 

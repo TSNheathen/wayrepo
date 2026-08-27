@@ -81,7 +81,7 @@ The required business outcomes are:
 - stale or conflicting authoritative facts are quarantined rather than accepted by arrival order; and
 - confirmed Orders remain durable when an outbound system is unavailable.
 
-The exact Core/module replay contract is awaiting OntOS confirmation in [TechsioCZ/ontos#97](https://github.com/TechsioCZ/ontos/issues/97).
+The confirmed [Core/module replay contract](https://github.com/TechsioCZ/ontos/issues/97) applies at every OntOS-side boundary: Core owns invocation identity, request-content conflict detection, and prevention of a second committed business effect, but stores no arbitrary business response payload. The owning Business Module or Connector must define whether a repeat returns a stable ResourceRef/receipt, reconstructs a semantically stable response from canonical state, or replays a bounded byte-identical acknowledgement because its public contract requires one. In-flight duplicates, prior failed attempts, and conflicting key reuse remain distinct outcomes with explicit retry or rejection behavior.
 
 ## Runtime and recovery boundary
 
