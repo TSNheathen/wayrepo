@@ -30,6 +30,14 @@ _Avoid_: Master system, source system
 The module-owned record that correlates an OntOS resource with identifiers issued by one External Business System, including the provenance and lifecycle needed for dependable exchange. Owning the mapping does not make OntOS the issuer of the external identifier.
 _Avoid_: Master identifier, shared external ID field
 
+**Party Registry**:
+The tenant-scoped OntOS Foundational Module that owns sparse or Unresolved person/organization identity, official identifiers, Contact Points, provenance-backed Party Relationships, Counterparty relationships and roles, matching, correction, and merge. Other modules reference its stable ResourceRefs and retain their own profiles and lifecycles; provider-issued correlations remain in the owning module's Connector Registry.
+_Avoid_: Global person database, CRM Customer store, commerce profile, Principal authorization store
+
+**Party Relationship**:
+A provenance-backed, time-bounded many-to-many association among Parties. It records a real-world relationship but grants no application access by itself.
+_Avoid_: User membership, authorization grant, permanent organization ownership
+
 **Integration Hub**:
 An External Business System that coordinates business exchanges with multiple third-party systems. It may route or transform facts but is not automatically their System of Record.
 _Avoid_: Connector, ERP, System of Record
@@ -85,7 +93,7 @@ A capability deliberately absent from the replacement because it is unused, obso
 The Akros retail selling channel. Visitors may browse and complete a purchase as a guest or as an authenticated Retail Portal Principal.
 
 **Retail Customer**:
-A Party buying or considering a purchase through the B2C Channel. A Retail Customer may purchase as a guest or use a Retail Portal Principal for durable portal access.
+A Party in the B2C commerce context. Party Registry owns the shared identity; Commerce owns the retail profile and lifecycle. A Retail Customer may purchase as a guest or use a Retail Portal Principal for durable portal access.
 _Avoid_: Customer Account, consumer user
 
 **Retail Portal Principal**:

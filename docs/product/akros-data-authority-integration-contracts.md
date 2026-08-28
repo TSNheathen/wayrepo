@@ -16,8 +16,8 @@ Authority is assigned per fact or lifecycle transition. Storefront and Commerce 
 
 | Fact or transition | System of Record |
 | --- | --- |
-| Party identity and deduplication | OntOS party-identity boundary; Party Registry is the current proposal pending [TechsioCZ/ontos#95](https://github.com/TechsioCZ/ontos/issues/95) |
-| Counterparty relationship | OntOS party/counterparty boundary pending [TechsioCZ/ontos#95](https://github.com/TechsioCZ/ontos/issues/95) |
+| Party identity and deduplication | Party Registry owns tenant-scoped sparse or Unresolved person/organization identity, official identifiers, Contact Points, Party Relationships, matching, correction, and merge |
+| Counterparty relationship | Party Registry owns each Party-to-managed-Legal-Entity Counterparty relationship and its independently time-bounded roles |
 | Authentication credentials and sessions | BetterAuth, under the higher-authority OntOS architecture |
 | Principal binding, authorization context, and audit identity | Core |
 | Retail profile, B2B eligibility, buyer/approver roles, purchasing limits, and preferences | Owning Commerce Business Modules |
@@ -44,6 +44,8 @@ Authority is assigned per fact or lifecycle transition. Storefront and Commerce 
 
 Externally supplied data exposes its issuer and freshness. Commerce Operations may invoke permissioned correction or recovery Actions but never acquires authority by doing so.
 
+As confirmed in [Define Party Registry, CRM Customer, and commerce Counterparty ownership](https://github.com/TechsioCZ/ontos/issues/95), CRM engagement profiles and workflows remain CRM-owned, while retail profiles, B2B purchasing workflows, and commerce policy remain Commerce-owned. Principal authorization—not Party Relationship—decides who may buy, approve, or administer access. Imports submit observations and match candidates; provider-issued identifiers remain Connector Registry correlations and never become the canonical Party record.
+
 ## Required Akros-side flows
 
 | Area | Required flow and boundary rule |
@@ -52,7 +54,7 @@ Externally supplied data exposes its issuer and freshness. Commerce Operations m
 | Assortment and Content | Customer Configuration publication flows outward through their owning modules. External input is accepted only from an explicitly declared source and cannot silently replace local merchandising or content. |
 | Pricing | Declared price inputs arrive at Pricing, which derives contextual offers. Order freezes accepted terms. |
 | Inventory and Availability | Source stock arrives as a versioned fact. Akros reservations cannot be overwritten by a stock import, and Availability derives the sell-and-deliver promise. |
-| Party and Counterparty | Identity exchange is governed in both directions. Matching, merge, and correction pass through the OntOS-owned party identity boundary; Akros purchasing roles and policy cannot be overwritten externally. |
+| Party and Counterparty | Identity exchange is governed in both directions. Matching, merge, correction, relationships, and Counterparty roles pass through Party Registry; consumers follow preserved merge aliases/redirects. Akros retail/B2B profiles, Principal authority, purchasing workflow, and policy cannot be overwritten externally. |
 | Order | A confirmed Order is handed off after commit. Correlated acceptance, rejection, processing, and later lifecycle outcomes return through governed Actions. |
 | Invoice and credit document | The issuer provides canonical metadata and an authorized Evidence Artifact reference or copy for Akros access. |
 | Payment | Akros sends an idempotent request where needed; authorization, settlement, cancellation, refund, and reconciliation outcomes return to Payment. |

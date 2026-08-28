@@ -29,7 +29,7 @@ At roadmap depth, Core owns the common guarantees for:
 
 Business Modules own all domain models, lifecycles, policy, data, user experiences, and business correctness. Commerce, ERP, Ticketing, CRM, property/rental, finance, accounting, product, inventory, documents, and provider-specific meaning remain outside Core.
 
-Shared business reality remains outside Core even when most Application Compositions need it. The exact boundary among Party identity, CRM, and commerce roles is awaiting OntOS architecture confirmation in [TechsioCZ/ontos#95](https://github.com/TechsioCZ/ontos/issues/95).
+Shared business reality remains outside Core even when most Application Compositions need it. As confirmed in [Define Party Registry, CRM Customer, and commerce Counterparty ownership](https://github.com/TechsioCZ/ontos/issues/95), Party Registry is a tenant-scoped Foundational Module for shared Party identity, Party Relationships, Counterparty relationships/roles, matching, correction, and merge. CRM and Commerce retain their owner-local profiles and lifecycles. Core retains Principal/authentication/authorization mechanisms but does not infer authority from Party Relationships; provider correlations remain Connector Registry facts.
 
 ## Module and composition rules
 
