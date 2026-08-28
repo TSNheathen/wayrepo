@@ -14,7 +14,7 @@ As confirmed in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/9
 
 Core validates the contract generically at installation, activation, and every governed tenant entrypoint. A cycle, missing module, incompatible release, invalid kind, or unsatisfied dependency rejects installation or activation. A suspended or temporarily unreachable dependency returns a typed unavailable/degraded outcome for affected entrypoints without rewriting persisted module states; unrelated closures remain operable. Foundational Modules use the same independently deployable catalog and entrypoint path as Business Modules rather than becoming implicit Core capabilities.
 
-This is the accepted logical target, not a statement that the current OntOS runtime already implements it. [Define and enforce Application Composition dependency contracts](https://github.com/TechsioCZ/ontos/issues/92) tracks the schema and enforcement follow-through.
+This is the accepted logical target, not a statement that the current OntOS runtime already implements it. [Define and enforce Application Composition dependency contracts](https://github.com/TechsioCZ/ontos/issues/92) records the resolved decision and the schema and enforcement requirements that pass to downstream specifications and implementation tickets.
 
 ### Customer Configuration
 
