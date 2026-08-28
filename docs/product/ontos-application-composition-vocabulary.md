@@ -1,6 +1,6 @@
 # OntOS application-composition vocabulary
 
-Status: confirmed in product/architecture discussion on 2026-08-23.
+Status: confirmed on 2026-08-23 and amended by the Commerce application-boundary decision on 2026-08-28.
 
 This note preserves the agreed distinction between a reusable OntOS application shape, its customer-specific configuration, and its runtime environments. It is deployment-topology neutral.
 
@@ -8,9 +8,9 @@ This note preserves the agreed distinction between a reusable OntOS application 
 
 ### Application Composition
 
-A named, reusable, versioned, dependency-closed directed acyclic graph of OntOS Foundational Modules and Business Modules serving a coherent business purpose.
+A named, reusable, continuously delivered, dependency-closed directed acyclic graph of OntOS Foundational Modules and Business Modules serving a coherent business purpose.
 
-As confirmed in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92), each versioned Module Manifest declares its module identity, release version, explicit Foundational-or-Business kind, and intrinsic required dependency constraints. The Application Composition selects compatible releases, owns the required set and permitted optional set, and closes those declarations into one DAG. Its identity and version govern installation and Customer Configuration activation; a Customer Configuration cannot broaden the graph.
+As confirmed in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92), each Module Manifest declares stable contract identity, compatibility metadata, explicit Foundational-or-Business kind, and intrinsic required dependency constraints. The Application Composition selects compatible implementations, owns the required set and permitted optional set, and closes those declarations into one DAG. Immutable build revisions and contract versions govern installation, skew detection, audit, and rollback, but customers do not pin a whole-product composition version or remain on a separate release line.
 
 Core validates the contract generically at installation, activation, and every governed tenant entrypoint. A cycle, missing module, incompatible release, invalid kind, or unsatisfied dependency rejects installation or activation. A suspended or temporarily unreachable dependency returns a typed unavailable/degraded outcome for affected entrypoints without rewriting persisted module states; unrelated closures remain operable. Foundational Modules use the same independently deployable catalog and entrypoint path as Business Modules rather than becoming implicit Core capabilities.
 
@@ -20,7 +20,7 @@ This is the accepted logical target, not a statement that the current OntOS runt
 
 A customer-specific declarative configuration of an Application Composition.
 
-A Customer Configuration may select permitted optional modules and define customer policies, settings, branding, locales, Connectors, and integration participation. It must not fork Core, change shared module contracts, or create customer-specific copies of module implementations. A genuinely necessary variation should become a reusable module capability or an explicitly governed extension rather than an implicit customer fork.
+A Customer Configuration may select permitted optional modules, explicit Module Implementation Identities, and define customer policies, settings, locales, Storefront Clients, Connectors, and integration participation. It must not fork Core, change a shared Module Contract Identity in place, or hide customer code behind an existing implementation identity. Prefer shared capability and policy; when a genuine implementation alternative is necessary, catalogue and operate it explicitly. Different public semantics require a distinct module identity.
 
 **Akros** and **N1** are Customer Configurations of the same Commerce Application Composition.
 
@@ -34,7 +34,17 @@ Environment identity does not imply a geographic region, data-residency boundary
 
 The physical mapping of Customer Configurations, Environments, Tenants, Application Composition modules, data stores, workers, and channel applications onto running infrastructure.
 
-Deployment Topology determines matters such as customer isolation versus shared multi-tenancy, infrastructure placement, and any regional or residency constraints. Those choices remain undecided and do not change the logical vocabulary above.
+Deployment Topology determines matters such as customer isolation versus shared multi-tenancy, infrastructure placement, and any regional or residency constraints. Storefront Applications remain independently deployed outside the standard OntOS Shell deployment regardless of those still-open backend placement choices.
+
+### Module Contract Identity and Module Implementation Identity
+
+The **Module Contract Identity** names stable public capability semantics. A **Module Implementation Identity** names one explicit catalogued implementation of that contract. Multiple implementations may share a contract identity only while public semantics remain compatible; otherwise they are separate modules. The catalog records implementation identity, build revision, contract hash/version, migrations, owner, and health.
+
+Customer Configuration selects a permitted implementation declaratively. This is not a customer-selectable product version: OntOS controls continuous mainline promotion, while immutable artifacts and compatibility metadata remain mandatory for canary, rollback, and audit.
+
+### Storefront Application and Storefront Client
+
+A **Storefront Application** is an independently deployed customer-facing application outside the standard OntOS Shell deployment. It owns presentation and uses a storefront-local BFF/proxy. Each Storefront Application authenticates as its own tenant-bound **Storefront Client** and presents a separate customer or guest context to the thin Commerce Storefront API.
 
 ### MicroVertical delivery seam
 
@@ -76,10 +86,11 @@ OntOS
 ## Handoff to the main Wayfinder conversation
 
 - Replace the proposed **OntOS Solution** term with the two-level model: **Application Composition** plus **Customer Configuration**.
-- Record Commerce as one reusable Application Composition; Akros and N1 are Customer Configurations of it, not separate products, compositions, module families, or Core forks.
-- Preserve dependency-closed composition as the target: Customer Configurations may choose only valid optional modules and cannot bypass the versioned module graph. Until enforcement lands, documentation and planning must identify this as a production gate rather than implemented behavior.
+- Record Commerce as one reusable Application Composition; Akros and N1 are Customer Configurations of it, not separate products, compositions, release lines, or Core forks.
+- Preserve dependency-closed composition as the target: Customer Configurations may choose only permitted modules and explicit implementations and cannot bypass contract compatibility. Until enforcement lands, documentation and planning must identify this as a production gate rather than implemented behavior.
 - Keep Core's enforcement generic: Commerce owns the business meaning of its graph, while Core must validate it without learning commerce meaning.
 - Keep Production/Staging/Development as topology-neutral Environments. Do not encode geography or decide customer isolation versus multi-tenancy here.
 - Preserve the independently deployable MicroVertical seam in every topology; co-location cannot broaden access or move executable ownership into Shell/Core.
+- Keep Storefront Applications outside the standard OntOS deployment, with one tenant-bound Storefront Client per frontend and a thin Commerce Storefront API over native module contracts.
 - Prefer the Symmy Connector for the business-system integrations Symmy supplies; keep Symmy–Provider Integrations downstream and use owner-local Direct Provider Adapters for provider families outside Symmy or missing Symmy routes.
 - Track unresolved OntOS implementation and boundary questions through the linked architect-review issues rather than presenting them as already implemented.

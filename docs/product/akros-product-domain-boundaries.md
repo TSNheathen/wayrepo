@@ -4,9 +4,9 @@ Decision asset for **[Define the product and domain boundary model](https://gith
 
 ## Direction — corrected by the OntOS kernel decision
 
-OntOS is the product. Core is its small internal kernel, and business capabilities live in reusable OntOS Foundational and Business Modules. Commerce is one Application Composition of those modules. Akros and N1 are declarative Customer Configurations of that same composition; they are not sibling products, module families, or Core forks.
+OntOS is the product. Core is its small internal kernel, and business capabilities live in reusable OntOS Foundational and Business Modules. Commerce is one Application Composition of those modules. Akros and N1 are declarative Customer Configurations of that same shared B2C/B2B backend; they are not sibling products, customer-pinned release lines, or Core forks.
 
-Customer variation belongs in permitted module selection, policy, settings, branding, locales, Connectors, and Channel Applications. Reusable behavior belongs in shared modules. Accepted OntOS terminology and architecture have highest authority.
+Customer variation belongs in permitted module and explicit implementation selection, business policy/settings, Storefront Clients, and Integration Routes. Presentation, branding, and journeys belong in independently deployed Storefront Applications. Reusable behavior normally belongs in shared modules; unavoidable alternatives receive explicit implementation identities rather than hidden forks. Accepted OntOS terminology and architecture have highest authority.
 
 ## Ownership map
 
@@ -16,9 +16,10 @@ Customer variation belongs in permitted module selection, policy, settings, bran
 | **Foundational Modules** | Shared business reality with stable meaning across multiple modules or Application Compositions | Core mechanisms or customer-specific policy |
 | **Commerce Business Modules** | Reusable commerce behavior across Catalog, Assortment, Pricing, Availability, Cart, Checkout, Order, Payment, Fulfillment, Aftercare, and Claim | Akros/N1 branding, customer configuration, or facts assigned to an External Business System |
 | **Commerce Application Composition** | The dependency-closed DAG, required/optional modules, and dependency rules shared by commerce customers | Customer variation or Deployment Topology |
-| **Akros Customer Configuration** | Permitted module selection, commercial policy/configuration, content, brand, locales, integration participation, and Channel Applications | Core, shared module contracts, or forked implementations |
-| **Storefront** | Customer-facing composition, presentation, URLs, and SEO | Canonical commerce facts and lifecycle authority |
-| **Commerce Operations** | Staff-facing workflow composition and Assisted Support | An unrestricted alternative to domain-owned behavior |
+| **Akros Customer Configuration** | Permitted module/implementation selection, business policy/configuration, locales, Storefront Clients, and Integration Routes | Core, in-place contract mutation, or hidden implementations |
+| **Storefront Application** | Independently deployed customer presentation, framework, journeys, branding, assets, URLs, and SEO | Canonical commerce facts, durable workflows, or the OntOS Shell deployment |
+| **Commerce Storefront API** | Thin channel authentication, authorization, translation, bounded aggregation, and public Action invocation | Canonical facts, durable workflows, or presentation |
+| **Commerce Operations** | Purpose-built staff workflow composition and Assisted Support over public module contracts | Shell/Core growth, canonical facts, or an unrestricted alternative mutation surface |
 | **External Business System** | Only the facts and lifecycle decisions for which it is the assigned System of Record | Automatic authority over all Akros business data |
 | **Symmy Connector** | The OntOS boundary to the preferred, non-exclusive Symmy Integration Hub for business-system routes it provides | Provider-specific downstream routes, canonical commerce policy, or business authority |
 | **Direct Provider Adapter** | Owner-local exchange with a provider family outside Symmy or a business-system route Symmy does not provide | Core behavior, cross-module authority, or a preserved legacy Connector |
@@ -41,13 +42,13 @@ Use **External Business System**, **System of Record**, and **Connector** rather
 
 A capability belongs in Core only when it is a business-neutral mechanism required by OntOS modules generally. Shared business meaning belongs in a Foundational or Business Module, even when most compositions use it. Similar names, data shapes, or screens are not enough.
 
-Commerce behavior remains in Commerce Business Modules. Akros-specific variation remains declarative Customer Configuration. N1 is the concrete second commerce configuration that tests reuse immediately.
+Commerce behavior remains in Commerce Business Modules. Akros-specific variation remains declaratively selected policy, modules, and explicit implementation alternatives. An alternative that changes public semantics becomes a distinct module; an invisible same-identity fork is prohibited. N1 is the concrete second commerce configuration that tests reuse immediately.
 
 ## Roadmap consequences
 
-- Deliver Akros through end-to-end business outcomes on the shared Commerce Application Composition, then onboard N1 without forking Core or modules.
-- Keep the composition dependency-closed and Customer Configurations declarative.
-- Keep Storefront and Commerce Operations dependent on stable commerce behavior rather than making either experience the business owner.
+- Deliver Akros through end-to-end business outcomes on the shared Commerce Application Composition, then onboard N1 without forking Core or hiding module implementations.
+- Keep the composition dependency-closed and Customer Configuration selection declarative, including explicit implementation identities.
+- Keep external Storefront Applications and purpose-built Commerce Operations dependent on stable native commerce contracts rather than making either experience the business owner.
 - Discover authority per fact and lifecycle transition; do not assume ABRA or any other External Business System is globally authoritative.
 - Prefer the Symmy Connector for POHODA, ABRA, HELIOS, and comparable business-system exchange that Symmy provides; name those downstream routes as Symmy–Provider Integrations. Use owner-local Direct Provider Adapters for payments and other provider families outside Symmy, or where Symmy lacks a required route. N1's direct POHODA code is legacy evidence only.
 - Keep Deployment Topology separate from Application Composition and Environment.
@@ -55,4 +56,4 @@ Commerce behavior remains in Commerce Business Modules. Akros-specific variation
 
 ## Deferred decisions
 
-This roadmap boundary does not prescribe modules, APIs, Actions, events, authorization sequences, state machines, schemas, deployment topology, provider contracts, or failure mechanics. Those details belong to later specifications and to the dedicated decisions for data authority, the OntOS kernel contract, commerce foundation, application shape, consistency, migration, and production readiness.
+Concrete module contracts, Actions, events, state machines, schemas, deployment topology, provider selections, and failure mechanics remain downstream. The application shape is resolved in [Commerce application boundaries](./commerce-application-boundaries.md).

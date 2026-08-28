@@ -2,6 +2,8 @@
 
 > **Handoff status (2026-08-23):** This investigation was pinned to OntOS `develop` at `17ba8f8` and describes contradictions that existed before the same handoff updated OntOS in commit [`32f6b91`](https://github.com/TechsioCZ/ontos/commit/32f6b91). Read phrases such as “current glossary” and mutable `origin/develop` references below as pre-correction evidence at the pinned commit, not as claims about the repository after `32f6b91`.
 
+> **Decision update (2026-08-28):** [Commerce application boundaries](../product/commerce-application-boundaries.md) resolves several questions this evidence intentionally left open. Storefront Applications are independently deployed outside the standard OntOS Shell deployment; Customer Configuration may select explicit catalogued Module Implementation Identities; and OntOS advances one continuously delivered backend without customer-pinned product versions. Historical evidence statements below remain provenance, not current boundary guidance.
+
 Research support for **Decide the OntOS kernel contract**. This note verifies the customer/module correction against first-party local architecture documents, the then-current OntOS `app/`, the Akros deployment snapshot, and the legacy WRShop engine. It deliberately does not inspect `context/ontos/mvp/` or `context/ontos/mvp2/`.
 
 ## Executive finding
@@ -47,10 +49,10 @@ OntOS product
 │   ├── ERP capabilities
 │   └── shared business capabilities where semantics truly match
 ├── Shell / back-office composition
-└── optional channel applications, including customer storefronts
+└── native channel edges and independently deployed customer storefronts
 ```
 
-Commerce is one reusable Application Composition: a dependency-closed DAG of OntOS Foundational and Business Modules. Akros and N1 are Customer Configurations of that composition, not owners of forked kernels or customer-named commerce domain implementations.
+Commerce is one reusable Application Composition: a dependency-closed DAG of OntOS Foundational and Business Modules. Akros and N1 are Customer Configurations of that composition, not owners of forked kernels. Customer-specific executable alternatives are permitted only as explicit catalogued Module Implementation Identities; invisible forks and in-place contract changes remain forbidden.
 
 ## 2. Current `app/` architecture and implementation
 
@@ -80,7 +82,7 @@ CRM currently names its aggregates `Customer` and `Contact`, whereas the root On
 
 ### Akros
 
-**User-confirmed:** Akros is the first customer to receive the OntOS commerce/back-office capability set. Its customer-facing storefront will probably be a separate app, potentially in the same monorepo, while management/back-office behavior is supplied by OntOS Business Modules.
+**User-confirmed at investigation time:** Akros is the first customer to receive the OntOS commerce/back-office capability set. The later application-boundary decision confirms that its customer-facing Storefront Applications deploy outside the standard OntOS Shell deployment, while management/Commerce Operations behavior consumes OntOS Business Modules through public contracts.
 
 **Source-confirmed:** the Akros capture is a thin customer deployment over the shared WRShop engine: both storefront and CMS bootstrap `engine/wrshop/run.php` (`context/team-1633516729428-akros-124b361ce570/public_html/index.php:1-3`; `context/team-1633516729428-akros-124b361ce570/public_html/cms/index.php:1-4`). Its Nginx configuration serves `www.akros.cz` and `b2b.akros.cz` from the same deployment (`context/team-1633516729428-akros-124b361ce570/conf.d/nginx.conf:1-8`). Its business-system client exposes catalogue, prices, customers, categories, orders, invoices, relations, and stock exchanges (`context/team-1633516729428-akros-124b361ce570/project/is/client/client.php:28-198`). This proves broad implemented/deployed seams, not which are active.
 
@@ -117,11 +119,11 @@ The OntOS glossary defines **Tenant**, **Tenant Module State**, **OntOS Business
 
 ### Application Composition
 
-A named, reusable, versioned, dependency-closed directed acyclic graph of OntOS Foundational and Business Modules serving a coherent business purpose. Versioned Module Manifests declare intrinsic required dependency constraints; the composition selects compatible releases and defines required and permitted optional modules. Commerce is one Application Composition shared by Akros, N1, and later commerce customers. Core preserves its transitive closure during installation, activation, and entrypoint execution, while dependency failure degrades only affected entrypoints and never cascades persisted module state ([OntOS #92](https://github.com/TechsioCZ/ontos/issues/92)).
+A named, reusable, continuously delivered, dependency-closed directed acyclic graph of OntOS Foundational and Business Modules serving a coherent business purpose. Versioned contracts and immutable build revisions preserve compatibility, audit, and rollback; customers do not pin a whole-product version. The composition selects compatible permitted implementations and defines required and optional modules. Core preserves transitive closure during installation, activation, and entrypoint execution, while dependency failure degrades only affected entrypoints and never cascades persisted module state ([OntOS #92](https://github.com/TechsioCZ/ontos/issues/92)).
 
 ### Customer Configuration
 
-A customer-specific declarative configuration of an Application Composition. It may select permitted optional modules and define customer policies, settings, branding, locales, Connectors, and integration participation. It must not fork Core, change shared module contracts, or create customer-specific module implementations. Akros and N1 are Customer Configurations of the Commerce Application Composition.
+A customer-specific declarative configuration of an Application Composition. It may select permitted optional modules and explicit Module Implementation Identities and define business policies, settings, locales, Storefront Clients, Connectors, and Integration Routes. It must not fork Core, change a shared contract in place, or hide customer code behind an existing implementation identity. Akros and N1 are Customer Configurations of Commerce.
 
 ### Environment
 
@@ -129,7 +131,7 @@ A topology-neutral lifecycle context in which a Customer Configuration operates,
 
 ### Channel Application
 
-A customer- or partner-facing application that composes public Business Module contracts for a channel, such as an Akros Storefront. It may live in the OntOS monorepo and deploy separately, but it owns presentation/journey concerns rather than canonical domain state. The Shell/back office is another composition surface, not the only permissible application.
+A customer- or partner-facing application that composes public Business Module contracts for a channel. Commerce Storefront Applications deploy independently outside the standard OntOS Shell deployment and own presentation/journey concerns rather than canonical domain state. They use a storefront-local BFF/proxy and tenant-bound Storefront Client to reach the thin Commerce Storefront API.
 
 ### Module Delivery Unit
 
@@ -137,17 +139,17 @@ The versioned frontend/backend artifact through which an OntOS Business Module c
 
 ### Deployment Topology
 
-The physical mapping of Customer Configurations, Environments, Tenants, Application Composition modules, data stores, workers, and Channel Applications onto running infrastructure. Deployment Topology decides isolation, shared multi-tenancy, infrastructure placement, and regional or residency constraints without changing module ownership or creating a Core fork.
+The physical mapping of Customer Configurations, Environments, Tenants, Application Composition modules, data stores, workers, and channel adapters onto running infrastructure. Deployment Topology decides isolation, shared multi-tenancy, infrastructure placement, and regional or residency constraints without changing module ownership or creating a Core fork. It does not move Storefront Applications into the standard Shell deployment.
 
 These terms prevent three recurring category errors: equating a commercial customer with a Tenant or CRM Customer, equating Customer Configuration with a product fork, and equating Application Composition or Environment with Deployment Topology.
 
 ## 6. Decisions this evidence supports
 
 1. **Supersede the sibling-product premise.** OntOS is the only product in this architecture. Core is its small mandatory kernel. Commerce capabilities are OntOS Business Modules/Foundational Modules used first for Akros and next for N1.
-2. **Keep customer names out of reusable module identities.** Use declarative Customer Configurations, policies, Channel Applications, and Connectors for Akros/N1 specialization.
+2. **Make exceptional customer implementations explicit.** Prefer shared modules and policy. When an alternative implementation is necessary, give it a catalogued Module Implementation Identity under the shared contract or a distinct module identity when public semantics differ; never hide a customer fork.
 3. **Preserve the strict Core boundary.** Authentication, authorization, tenant/legal-entity/principal context, module state, governed Actions, audit/events/outbox, media/evidence, search/reporting foundations, worker mechanics, and cross-module references belong in Core. Commerce, ERP, catalogue, inventory, pricing, documents workflow, orders, and provider mappings do not.
 4. **Treat Akros as the first proof, not the sole semantics owner.** N1 is already a concrete second commerce customer, and its Pohoda/bikeshop behavior should inform module acceptance scenarios immediately.
-5. **Preserve both dependency closure and independent deployability.** The Commerce Application Composition is a versioned dependency-closed DAG, while every Foundational or Business Module remains independently deployable through the same MicroVertical catalog path even when several are co-located. Core validates the compatible transitive closure without learning business meaning; unavailable dependencies degrade only affected entrypoints and do not mutate persisted module state. Separately defer per-customer isolated deployment versus shared multi-tenancy; this does not weaken the vertical seam.
+5. **Preserve both dependency closure and independent deployability.** The Commerce Application Composition is a continuously delivered dependency-closed DAG, while every Foundational or Business Module remains independently deployable through the same MicroVertical catalog path even when several are co-located. Core validates the compatible transitive closure without learning business meaning; unavailable dependencies degrade only affected entrypoints and do not mutate persisted module state. Immutable build/contract revisions remain operational evidence rather than customer-pinned product versions.
 6. **Treat the deployment contradiction as resolved.** At pinned commit `17ba8f8`, the older OntOS pack described one jointly deployable modular monolith, while the authoritative app-local architecture mandated independently deployable modules. [OntOS #93: Record the independently deployable MicroVertical architecture and retire stale modular-monolith guidance](https://github.com/TechsioCZ/ontos/issues/93) and ADR-0016 now make the app-local invariant canonical and retire the stale root guidance. Remaining rollout, recovery, degradation, and topology questions are proof or downstream Wayfinder decisions, not permission to weaken the seam.
 
 ## Remaining unknowns
@@ -156,7 +158,6 @@ These terms prevent three recurring category errors: equating a commercial custo
 - Which commerce capabilities are Foundational Modules versus ordinary Business Modules; similarity alone is not enough.
 - Whether Product/Catalog and Inventory/Storage become single modules or smaller cooperating modules.
 - Which domain owns translated product content versus editorial/storefront content.
-- Whether Storefronts share one application codebase with tenant branding/configuration or use separate Channel Applications.
 - Whether Production Environments use isolated deployments per Customer Configuration, shared multi-tenancy, or a supported mix.
 - What failure-isolation SLO the Shell must provide when a Module Federation remote or module backend is unavailable.
 - Which N1 legacy behaviors are active and must migrate; the source snapshot does not answer runtime state.
