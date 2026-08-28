@@ -36,6 +36,12 @@ The physical mapping of Customer Configurations, Environments, Tenants, Applicat
 
 Deployment Topology determines matters such as customer isolation versus shared multi-tenancy, infrastructure placement, and any regional or residency constraints. Those choices remain undecided and do not change the logical vocabulary above.
 
+### MicroVertical delivery seam
+
+Every OntOS Foundational or Business Module is one independently deployable MicroVertical. Co-location is permitted only as a Deployment Topology choice and never permits private imports, shared repositories, cross-module database access, or shared business transactions. Executable registrations, migrations, handlers, workers, Policies, and repositories remain owner-local; Shell/Core consumes allowlisted serialized contracts and invokes governed entrypoints. Synchronous communication uses published typed clients and asynchronous communication uses published Outbox contracts.
+
+The same authentication, authorization, typed-failure, compatibility, and dependency-closure boundary applies when co-located or network-separated. "Modular monolith" and "jointly deployable application" are historical OntOS terms, superseded by [OntOS ADR-0016](https://github.com/TechsioCZ/ontos/blob/develop/docs/adr/0016-independently-deployable-microverticals.md) and the accepted resolution of [OntOS #93: Record the independently deployable MicroVertical architecture and retire stale modular-monolith guidance](https://github.com/TechsioCZ/ontos/issues/93).
+
 ## Integration terminology
 
 ### Symmy Connector
@@ -74,5 +80,6 @@ OntOS
 - Preserve dependency-closed composition as the target: Customer Configurations may choose only valid optional modules and cannot bypass the versioned module graph. Until enforcement lands, documentation and planning must identify this as a production gate rather than implemented behavior.
 - Keep Core's enforcement generic: Commerce owns the business meaning of its graph, while Core must validate it without learning commerce meaning.
 - Keep Production/Staging/Development as topology-neutral Environments. Do not encode geography or decide customer isolation versus multi-tenancy here.
+- Preserve the independently deployable MicroVertical seam in every topology; co-location cannot broaden access or move executable ownership into Shell/Core.
 - Prefer the Symmy Connector for the business-system integrations Symmy supplies; keep Symmy–Provider Integrations downstream and use owner-local Direct Provider Adapters for provider families outside Symmy or missing Symmy routes.
 - Track unresolved OntOS implementation and boundary questions through the linked architect-review issues rather than presenting them as already implemented.
