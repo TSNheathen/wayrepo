@@ -6,7 +6,7 @@ Decision asset for **[Decide the OntOS kernel contract](https://github.com/TSNhe
 
 OntOS is the product. Core is its small mandatory kernel; it is not a separately consumed product, a customer runtime, or a forkable foundation. Foundational and Business Modules own business meaning and compose into applications.
 
-**Commerce** is one reusable Application Composition. **Akros** and **N1** are declarative Customer Configurations of that same composition. Customer variation never creates a Core fork, a module fork, or a customer-named copy of a reusable implementation.
+**Commerce** is one reusable, continuously delivered Application Composition. **Akros** and **N1** are declarative Customer Configurations of that same composition. Customer variation never creates a Core fork or an invisible module fork. A permitted alternative implementation is explicit in the catalog and selected by Module Implementation Identity; different public semantics require a different Module Contract Identity.
 
 Production, Staging, and Development are topology-neutral Environments. Customer isolation, multi-tenancy, geography, and placement remain a separate Deployment Topology decision.
 
@@ -35,7 +35,7 @@ Shared business reality remains outside Core even when most Application Composit
 
 Business Modules preserve independently deployable seams even when deployment topology co-locates them. They communicate only through published contracts and never acquire ownership of another module's business data or lifecycle.
 
-As confirmed in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92), dependency authority is split without duplication. A versioned Module Manifest declares the module's stable identity, release version, kind, and intrinsic required dependency constraints. A versioned Application Composition selects compatible module releases, owns the required set and permitted optional set, and closes those declarations into one acyclic graph. A Customer Configuration may select only options allowed by that composition; neither it nor a Module Manifest may broaden the composition.
+As confirmed in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92), dependency authority is split without duplication. A Module Manifest declares stable contract identity, implementation identity, compatibility metadata, kind, and intrinsic required dependency constraints. The Application Composition selects compatible implementations, owns the required set and permitted optional set, and closes those declarations into one acyclic graph. A Customer Configuration may select only options allowed by that composition; neither it nor a Module Manifest may broaden the composition. Immutable build revisions and contract versions remain operational evidence, not customer-pinned product releases.
 
 Core binds installation and tenant activation to an immutable composition identity and version. Installation rejects the whole candidate catalog on a cycle, missing module, incompatible version, invalid kind, or unsatisfied required edge. Activation refuses a transition unless every transitive requirement is installed, compatible, and active. Every governed tenant entrypoint evaluates the same transitive closure before resolving private behavior.
 
@@ -77,7 +77,7 @@ Detailed workflows, schemas, algorithms, deployment mechanics, and acceptance th
 
 Rejected from Core:
 
-- customer or module forks;
+- customer or invisible module forks; explicit catalogued module implementations remain owner-local outside Core;
 - Commerce, ERP, Ticketing, CRM, property/rental, or provider-specific business meaning;
 - a generic entity store, workflow engine, plugin marketplace, or commerce engine; and
 - deployment-provider, geography, or customer-isolation assumptions.
@@ -85,7 +85,6 @@ Rejected from Core:
 Deferred to downstream decisions:
 
 - the exact Commerce module graph and module splits;
-- Storefront and Channel Application boundaries;
 - per-customer isolation, shared multi-tenancy, and regional placement;
 - commerce workflow consistency;
 - migration, coexistence, and cutover; and
@@ -96,3 +95,5 @@ Deferred to downstream decisions:
 Canonical OntOS vocabulary and accepted architecture have highest authority. App-local OntOS documentation governs current implementation behavior. The issues linked above record gaps where the accepted product direction is not yet represented consistently by the runtime or canonical documentation.
 
 Evidence: [OntOS customer and Business Module composition](../research/ontos-customer-module-composition-evidence.md) and [Czech ERP families and the OntOS commerce boundary](../research/czech-erp-families-ontos-commerce-boundary.md).
+
+Resolved application boundary: [Commerce application boundaries](./commerce-application-boundaries.md).

@@ -4,9 +4,11 @@ Decision asset for **[Choose the commerce foundation for production Akros](https
 
 ## Decision — corrected by the OntOS kernel decision
 
-Production Akros will use the clean **Commerce Application Composition inside OntOS**. OntOS is the product; Core is its small internal kernel. Reusable commerce behavior belongs to OntOS Foundational and Business Modules. Akros and N1 are declarative Customer Configurations of the same dependency-closed composition, never sibling products or owners of forked modules.
+Production Akros will use the clean **Commerce Application Composition inside OntOS**. OntOS is the product; Core is its small internal kernel. Reusable commerce behavior belongs to OntOS Foundational and Business Modules. Akros and N1 are declarative Customer Configurations of the same continuously delivered dependency-closed composition, never sibling products or owners of hidden module forks.
 
-The foundation contains no third-party commerce-engine runtime, package, schema, API, workflow, administration component, copied source, compatibility layer, or transitional deployment. Existing engines may be read only as behavioral evidence and sources of independent acceptance scenarios. Renaming or selectively copying their code is not an acceptable route because it remains derived architecture and source.
+The foundation contains no third-party commerce-engine runtime, package, schema, workflow, administration component, copied source, or transitional engine deployment. Existing engines may be read only as behavioral evidence and sources of independent acceptance scenarios. Renaming or selectively copying their code is not an acceptable route because it remains derived architecture and source.
+
+The thin Commerce Storefront API may temporarily translate the limited Medusa Store API shapes required by existing `new-engine` storefront hooks. That protocol façade owns no business state or workflow, and the native module-owned Commerce contracts remain authoritative. This explicit delivery bridge does not weaken the prohibition on a Medusa runtime, schema, copied source, or engine-owned architecture.
 
 The no-third-party-engine constraint is binding. If it conflicts with delivery timing, the roadmap removes non-launch scope or reforecasts delivery rather than silently introducing an engine dependency.
 
@@ -27,7 +29,7 @@ Commerce Business Modules cover the e-commerce domains required by the accepted 
 
 MicroVerticals may be co-located but must remain independently deployable. The architecture does not introduce synchronous dual writes, cross-module transactions, private implementation imports, a generic plugin marketplace, or a universal commerce framework.
 
-The dependency-closed composition is an accepted target rule, not a claim about current runtime completeness. [OntOS #92: Define and enforce Application Composition dependency contracts](https://github.com/TechsioCZ/ontos/issues/92) confirms that versioned Module Manifests declare intrinsic required dependency constraints, while the versioned Commerce Application Composition selects compatible releases and owns its required and permitted-optional graph. Core must preserve transitive closure during installation, tenant activation, and every governed entrypoint. Foundational Modules use the same independently deployable catalog path as Business Modules under an explicit module kind. A missing, incompatible, suspended, or unreachable dependency degrades only affected entrypoints and never cascades persisted state.
+The dependency-closed composition is an accepted target rule, not a claim about current runtime completeness. [OntOS #92: Define and enforce Application Composition dependency contracts](https://github.com/TechsioCZ/ontos/issues/92) confirms that versioned public contracts declare intrinsic required dependency constraints, while the continuously delivered Commerce Application Composition selects compatible implementations and owns its required and permitted-optional graph. Core must preserve transitive closure during installation, tenant activation, and every governed entrypoint. Foundational Modules use the same independently deployable catalog path as Business Modules under an explicit module kind. A missing, incompatible, suspended, or unreachable dependency degrades only affected entrypoints and never cascades persisted state.
 
 [OntOS #93: Record the independently deployable MicroVertical architecture and retire stale modular-monolith guidance](https://github.com/TechsioCZ/ontos/issues/93) confirms that every Foundational or Business Module retains one independently deployable MicroVertical seam. Co-location never permits private imports, shared repositories, cross-module database access, shared business transactions, or Shell/Core ownership of executable registration. Current repository mechanisms enforce substantial contract, catalog, gateway, data, and worker boundaries; production still requires independent placement, version-skew, failure-isolation, rollout, rollback, recovery, and operational proof.
 
@@ -48,7 +50,7 @@ A behavior from another engine enters scope only when the Akros cutline requires
 
 ## Commerce Operations
 
-Commerce Operations is purpose-built over the same module-owned Actions used by every caller. It provides focused Catalog, Counterparty, Order, Payment, Fulfillment, Claim, Content, and Connector workflows without becoming a generic administration framework or a direct database editor.
+Commerce Operations is a separately bounded, purpose-built staff application over the same public module-owned Actions used by every caller. It provides focused Catalog, Counterparty, Order, approval, Payment, Fulfillment, Claim, Content, reconciliation, and recovery workflows without becoming a generic administration framework, Shell/Core capability, canonical fact owner, or direct database editor.
 
 Every state change is permissioned, policy-checked, attributed, and audited. Existing operator surfaces are behavioral references only; none supplies target runtime or UI code.
 
@@ -88,7 +90,7 @@ Research evidence: [Akros commerce-foundation options](../research/akros-commerc
 ## Downstream decisions
 
 - [Decide the OntOS kernel contract](https://github.com/TSNheathen/wayrepo/issues/10) determines the Core boundary and hardening ownership.
-- [Decide storefront, commerce operations, and external-system application boundaries](https://github.com/TSNheathen/wayrepo/issues/11) determines physical application composition.
+- [Commerce application boundaries](./commerce-application-boundaries.md) resolves Storefront, Commerce Operations, portal identity, module-implementation, delivery, and external-route boundaries.
 - [Define critical commerce workflow and consistency guarantees](https://github.com/TSNheathen/wayrepo/issues/12) determines lifecycle state machines and cross-domain consistency.
 - [Choose the Akros migration, coexistence, and cutover strategy](https://github.com/TSNheathen/wayrepo/issues/13) determines transition mechanics.
 - [Set production readiness and acceptance gates](https://github.com/TSNheathen/wayrepo/issues/14) turns the proof obligations into launch gates.

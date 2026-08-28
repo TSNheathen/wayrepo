@@ -7,16 +7,16 @@ This glossary extends the canonical OntOS vocabulary in `../context/ontos/docs/C
 ## Language
 
 **Akros**:
-A Customer Configuration of the Commerce Application Composition and its first production delivery. Akros selects shared OntOS modules and supplies declarative policy, settings, brand, locales, integrations, and Channel Applications without forking Core or a Business Module.
-_Avoid_: Separate product, Core fork, Akros module family
+A Customer Configuration of the Commerce Application Composition and its first production delivery. Akros declaratively selects permitted modules, explicit implementation alternatives, policy, settings, integrations, and Storefront Clients without forking Core or hiding a module implementation.
+_Avoid_: Separate product, Core fork, invisible Akros module fork
 
 **N1**:
 The second confirmed Customer Configuration of the Commerce Application Composition and an existing bikeshop customer on the legacy WRShop engine. Its direct POHODA integration is legacy and migration evidence, not the target integration architecture.
 _Avoid_: Separate product, POHODA-specific OntOS fork
 
 **Commerce Application Composition**:
-The reusable OntOS Application Composition that supplies commerce capability to Akros, N1, and later Customer Configurations. It contains no third-party commerce-engine runtime or derived source.
-_Avoid_: Akros product, module fork, customer-specific commerce foundation
+The reusable, continuously delivered OntOS Application Composition that supplies shared B2C/B2B commerce capability to Akros, N1, and later Customer Configurations. It contains no third-party commerce-engine runtime or derived source; a temporary protocol façade does not become its foundation.
+_Avoid_: Akros product, customer-pinned product version, customer-specific commerce foundation
 
 **External Business System**:
 A live upstream or downstream system that exchanges business facts with Akros, such as an ERP, accounting system, WMS, PIM, CRM, or bespoke service. Its product and system type must be observed rather than assumed.
@@ -57,6 +57,10 @@ _Avoid_: OntOS-owned provider adapter, unnamed ERP integration
 **Direct Provider Adapter**:
 An owner-local external adapter used for a provider family intentionally outside Symmy, or when Symmy does not supply the required integration. It implements an owning module's external contract without gaining authority over the exchanged facts.
 _Avoid_: Direct legacy Connector, Core integration, System of Record
+
+**Integration Route**:
+The configured exchange path for one External Business System and fact family: One-time Migration, Symmy Route, or Direct Provider Route. It does not grant the path authority over the exchanged fact.
+_Avoid_: Global integration mode, universal gateway
 
 **Production Deployment Snapshot**:
 The Akros package captured approximately five days before this Wayfinder session and confirmed by the operator as live and in use. It proves which code, routes, customizations, and connector seams were deployed at capture time, but not their database-controlled enablement, traffic, schedules, or operator use.
@@ -99,6 +103,10 @@ _Avoid_: Customer Account, consumer user
 **Retail Portal Principal**:
 A Principal authorized to access a Retail Customer's saved addresses, commerce history, aftercare, favorites, and notifications. It is optional for B2C checkout.
 _Avoid_: Customer Account, user account
+
+**Commerce Portal Account**:
+A Commerce-owned BetterAuth account used by a retail or B2B person to authenticate outside the staff Shell realm. It links to tenant-scoped Principals and Party/Counterparty references but is not itself the shared Party identity.
+_Avoid_: Staff account, Party record, Storefront Client
 
 **B2B Channel**:
 The Akros trade selling channel. Public visitors may see neutral product information and request access, but Counterparty-specific assortment, prices, availability, and ordering require an approved Principal acting for that Counterparty.
@@ -181,13 +189,37 @@ A governed request concerning one or more durable Order lines, with its own evid
 _Avoid_: Order note, generic support ticket
 
 **Akros Commerce Policy**:
-The declarative Akros Customer Configuration of shared commerce policy for its B2C and B2B Channels, Counterparty purchasing, quantities and packages, markets, and legal obligations. A reusable behavior change belongs in an OntOS Business Module rather than an Akros fork.
+The declarative Akros Customer Configuration of shared commerce policy for its B2C and B2B Channels, Counterparty purchasing, quantities and packages, markets, and legal obligations. Behavior belongs in a shared module or an explicit catalogued Module Implementation, never an invisible Akros fork.
 _Avoid_: Core policy, provider-specific mapping, generic settings
 
-**Storefront**:
-The customer-facing composition and presentation of Akros commerce journeys, including Channel rendering, URLs, and SEO. It consumes commerce decisions but does not own canonical commerce facts.
-_Avoid_: Commerce domain, System of Record
+**Storefront Application**:
+An independently deployed customer-facing application outside the standard OntOS Shell deployment. It owns framework, presentation, routing, branding, assets, interaction, and SEO while consuming the Commerce Storefront API through its local BFF.
+_Avoid_: Commerce domain, OntOS Shell module, System of Record
+
+**Storefront Client**:
+A tenant-bound service Principal and rotatable credential for one Storefront Application. It identifies the calling application, never the browsing customer or their authorization.
+_Avoid_: Portal Account, Tenant, shared storefront API key
+
+**Commerce Storefront API**:
+The thin OntOS channel edge that authenticates application and customer/guest context, authorizes, translates contracts, aggregates bounded reads, and invokes public Commerce Actions. It owns no canonical facts or durable workflows.
+_Avoid_: Commerce domain, universal BFF, canonical store
+
+**Medusa Store Compatibility Facade**:
+A temporary Commerce Storefront API translation surface for the Medusa Store API shapes required by existing `new-engine` storefront hooks. It is not a Medusa runtime, source derivative, canonical contract, or permanent channel architecture.
+_Avoid_: Commerce foundation, native Commerce contract
 
 **Commerce Operations**:
-The staff-facing composition of permissioned commerce workflows and Assisted Support. It invokes domain-owned behavior and does not provide an unrestricted alternative mutation surface.
+The purpose-built staff application for permissioned commerce workflows and Assisted Support. It uses the staff Shell authentication boundary and public module contracts without becoming Shell/Core, a fact owner, or an unrestricted mutation surface.
 _Avoid_: Admin, Back Office, direct database editor
+
+**Module Contract Identity**:
+The stable identity of a module capability's public semantics and contract. Different public semantics require a different identity.
+_Avoid_: Deployment, implementation build, customer fork
+
+**Module Implementation Identity**:
+The explicit catalog identity of one executable implementation of a Module Contract Identity, such as `standard` or `akros`. Customer Configuration may select a permitted implementation; invisible same-identity forks are forbidden.
+_Avoid_: Product version, hidden override, untracked customer copy
+
+**Build Revision**:
+The immutable source/artifact identity recorded for deployment, compatibility evidence, audit, and rollback. It is not a customer-selectable OntOS product version.
+_Avoid_: Customer release line, module contract identity
