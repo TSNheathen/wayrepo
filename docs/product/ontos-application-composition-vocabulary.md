@@ -8,11 +8,13 @@ This note preserves the agreed distinction between a reusable OntOS application 
 
 ### Application Composition
 
-A named, reusable, dependency-closed directed acyclic graph of OntOS Foundational Modules and Business Modules serving a coherent business purpose.
+A named, reusable, versioned, dependency-closed directed acyclic graph of OntOS Foundational Modules and Business Modules serving a coherent business purpose.
 
-An Application Composition defines required modules, permitted optional modules, and their dependency rules. Core validates those rules generically. A dependency failure may make affected capabilities unavailable but must not disable unrelated modules or silently rewrite module state. **Commerce** is an Application Composition shared by Akros, N1, and later commerce customers.
+As confirmed in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92), each versioned Module Manifest declares its module identity, release version, explicit Foundational-or-Business kind, and intrinsic required dependency constraints. The Application Composition selects compatible releases, owns the required set and permitted optional set, and closes those declarations into one DAG. Its identity and version govern installation and Customer Configuration activation; a Customer Configuration cannot broaden the graph.
 
-This is the accepted logical target, not a statement that the current OntOS runtime already implements it. The versioned contract, Foundational Module representation, and enforcement points await architect confirmation in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92).
+Core validates the contract generically at installation, activation, and every governed tenant entrypoint. A cycle, missing module, incompatible release, invalid kind, or unsatisfied dependency rejects installation or activation. A suspended or temporarily unreachable dependency returns a typed unavailable/degraded outcome for affected entrypoints without rewriting persisted module states; unrelated closures remain operable. Foundational Modules use the same independently deployable catalog and entrypoint path as Business Modules rather than becoming implicit Core capabilities.
+
+This is the accepted logical target, not a statement that the current OntOS runtime already implements it. [Define and enforce Application Composition dependency contracts](https://github.com/TechsioCZ/ontos/issues/92) tracks the schema and enforcement follow-through.
 
 ### Customer Configuration
 
@@ -69,7 +71,7 @@ OntOS
 
 - Replace the proposed **OntOS Solution** term with the two-level model: **Application Composition** plus **Customer Configuration**.
 - Record Commerce as one reusable Application Composition; Akros and N1 are Customer Configurations of it, not separate products, compositions, module families, or Core forks.
-- Preserve dependency-closed composition as the target: Customer Configurations may choose only valid optional modules and cannot bypass the module graph once enforcement is implemented.
+- Preserve dependency-closed composition as the target: Customer Configurations may choose only valid optional modules and cannot bypass the versioned module graph. Until enforcement lands, documentation and planning must identify this as a production gate rather than implemented behavior.
 - Keep Core's enforcement generic: Commerce owns the business meaning of its graph, while Core must validate it without learning commerce meaning.
 - Keep Production/Staging/Development as topology-neutral Environments. Do not encode geography or decide customer isolation versus multi-tenancy here.
 - Prefer the Symmy Connector for the business-system integrations Symmy supplies; keep Symmy–Provider Integrations downstream and use owner-local Direct Provider Adapters for provider families outside Symmy or missing Symmy routes.

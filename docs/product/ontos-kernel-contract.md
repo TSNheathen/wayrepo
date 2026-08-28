@@ -35,9 +35,15 @@ Shared business reality remains outside Core even when most Application Composit
 
 Business Modules preserve independently deployable seams even when deployment topology co-locates them. They communicate only through published contracts and never acquire ownership of another module's business data or lifecycle.
 
-The Commerce Application Composition owns its dependency rules; Core enforces those rules generically without learning commerce meaning. Customer Configurations may select only valid variations. A failed dependency may make affected capabilities unavailable, but it must not disable unrelated modules or silently rewrite module state.
+As confirmed in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92), dependency authority is split without duplication. A versioned Module Manifest declares the module's stable identity, release version, kind, and intrinsic required dependency constraints. A versioned Application Composition selects compatible module releases, owns the required set and permitted optional set, and closes those declarations into one acyclic graph. A Customer Configuration may select only options allowed by that composition; neither it nor a Module Manifest may broaden the composition.
 
-This is the accepted target contract, not a claim that the current runtime already implements it. Representation of the composition contract, Foundational Module delivery, and closure enforcement are tracked for OntOS architect confirmation in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92). The replacement architecture decision and retirement of modular-monolith guidance are tracked in [TechsioCZ/ontos#93](https://github.com/TechsioCZ/ontos/issues/93).
+Core binds installation and tenant activation to an immutable composition identity and version. Installation rejects the whole candidate catalog on a cycle, missing module, incompatible version, invalid kind, or unsatisfied required edge. Activation refuses a transition unless every transitive requirement is installed, compatible, and active. Every governed tenant entrypoint evaluates the same transitive closure before resolving private behavior.
+
+Foundational Modules use the same independently deployable, one-module-per-MicroVertical delivery and Installed Module Catalog path as Business Modules, distinguished by an explicit manifest kind. They remain modules, not implicit Core capabilities, and communicate through the same public contracts and owner-local state boundaries.
+
+A suspended, incompatible, missing, or temporarily unreachable dependency yields a typed unavailable/degraded result that identifies the affected entrypoint and dependency reason at the appropriate trust boundary. It never silently cascades or rewrites persisted tenant module states. A dependent module may remain persistently `active` while its effective entrypoints are unavailable; unrelated dependency closures remain operable.
+
+This is the accepted target contract, not a claim that the current runtime already implements it. Schema, catalog, transition, entrypoint, Foundational Module, and test follow-through remain tracked in [Define and enforce Application Composition dependency contracts](https://github.com/TechsioCZ/ontos/issues/92). The replacement architecture decision and retirement of modular-monolith guidance are tracked in [TechsioCZ/ontos#93](https://github.com/TechsioCZ/ontos/issues/93).
 
 ## Continuity and evidence rules
 

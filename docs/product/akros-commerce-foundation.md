@@ -27,7 +27,7 @@ Commerce Business Modules cover the e-commerce domains required by the accepted 
 
 MicroVerticals may be co-located but must remain independently deployable. The architecture does not introduce synchronous dual writes, cross-module transactions, private implementation imports, a generic plugin marketplace, or a universal commerce framework.
 
-The dependency-closed composition is an accepted target rule, not a claim about current runtime completeness. OntOS contract representation, Foundational Module delivery, and enforcement are tracked in [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92); the replacement deployment ADR is tracked in [TechsioCZ/ontos#93](https://github.com/TechsioCZ/ontos/issues/93).
+The dependency-closed composition is an accepted target rule, not a claim about current runtime completeness. [TechsioCZ/ontos#92](https://github.com/TechsioCZ/ontos/issues/92) confirms that versioned Module Manifests declare intrinsic required dependency constraints, while the versioned Commerce Application Composition selects compatible releases and owns its required and permitted-optional graph. Core must preserve transitive closure during installation, tenant activation, and every governed entrypoint. Foundational Modules use the same independently deployable catalog path as Business Modules under an explicit module kind. A missing, incompatible, suspended, or unreachable dependency degrades only affected entrypoints and never cascades persisted state. The OntOS issue tracks implementation proof; the replacement deployment ADR is tracked in [TechsioCZ/ontos#93](https://github.com/TechsioCZ/ontos/issues/93).
 
 ## Scope and behavioral authority
 
@@ -58,6 +58,8 @@ The foundation is not considered production-commerce capable until evidence prov
 - durable asynchronous work with crash recovery;
 - fail-closed production identity, authorization, policy, and secrets;
 - tenant and Legal Entity isolation;
+- versioned composition compatibility and transitive dependency closure at installation, activation, and entrypoint execution;
+- typed affected-entrypoint degradation without persisted-state cascades or unrelated-module outage;
 - permissioned audit and Evidence Artifact handling;
 - one writer for each canonical aggregate;
 - recovery and reconciliation for external failures; and
